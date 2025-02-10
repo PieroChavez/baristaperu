@@ -1,0 +1,23 @@
+.text-rotate {
+    
+    display: inline-block;
+    overflow: hidden;
+    font-size: 60px;
+    font-weight: bold;
+  }
+  
+  .text-rotate-word {
+    display: inline-block;
+    
+  }
+  
+  .text-rotate-element {
+    display: inline-block;
+    justify-content: center;
+  }
+  
+  .text-rotate-space {
+    width: 0.3em;
+    
+  }
+  
