@@ -17,6 +17,7 @@ const Home = () => {
   transition={{ type: "spring", damping: 30, stiffness: 400 }}
   rotationInterval={2000}
 />
+<div> GAY EL QUE NO REACCIONA</div>
     </div>
   );
 };
