@@ -1,5 +1,15 @@
 # React + Vite
 
+
+
+# npm run build
+
+despues de hacer git init - 
+hacer git remote add origin // url repo
+git config core.sparseCheckout true
+git sparse-checkout set (copier ruta pach)
+despues git pull origin main/master
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
