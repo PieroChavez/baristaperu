@@ -1,4 +1,4 @@
-import React from 'react';
+import 'react';
 import './Home.css';
 import RotatingText from './RotatingText'; // Importa el componente correctamente
 
