@@ -1,229 +1,96 @@
-/* Navbar.css */
-.container {
-    display: flex;
-    flex-direction: column;
-    height: 0%; /* Ocupa toda la altura de la pantalla */
-    justify-content: space-between; /* Separa el header y el nav */
-    align-items: center;
-    padding: 1rem;
+/* src/components/Navbar/Navbar.css */
+.navbar {
+  background-color: var(--mantine-color-body, #fff); /* Fondo del navbar */
+  height: 700px;
+  width: 300px;
+  padding: var(--mantine-spacing-md, 16px);
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--mantine-color-gray-3, #e9ecef); /* Borde derecho */
 }
 
-.header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
+.section {
+  margin-left: calc(var(--mantine-spacing-md, 16px) * -1);
+  margin-right: calc(var(--mantine-spacing-md, 16px) * -1);
+  margin-bottom: var(--mantine-spacing-md, 16px);
 
-.title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #333;
-}
-
-.subtitle {
-    font-size: 1rem;
-    color: #666;
-}
-
-.login-button {
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.login-button:hover {
-    background-color: #0056b3;
-}
-
-.main-content {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.icon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2rem 0;
-}
-
-.icon img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.role-description {
-    font-size: 1.2rem;
-    color: #444;
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-.nav {
-    width: 100%;
-    background-color: #f8f9fa;
-    padding: 1rem;
-    border-top: 1px solid #ddd;
-}
-
-
-
-
-
-.tab:hover {
-    background-color: #e9ecef;
-}
-
-.underline {
-    height: 2px;
-    background-color: #007bff;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-
-.registration-alert {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    background-color: #fff;
-    padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.registration-alert p {
-    margin: 0 0 1rem 0;
-    font-size: 0.9rem;
-    color: #333;
-}
-
-.registration-alert button {
-    padding: 0.5rem 1rem;
-    margin-right: 0.5rem;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.registration-alert button:first-of-type {
-    background-color: #f8f9fa;
-    color: #333;
-}
-
-.registration-alert button:last-of-type {
-    background-color: #007bff;
-    color: white;
-}
-
-.registration-alert button:hover {
-    opacity: 0.9;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  .tabs-container {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-weight: 500;
-    font-size: 14px;
-    display: flex;
-    width: 100%;
-    overflow-x: auto; /* Permite scroll horizontal si los tabs no caben */
+  &:not(:last-of-type) {
+    border-bottom: 1px solid var(--mantine-color-gray-3, #e9ecef); /* Borde inferior */
   }
-  
-  .tab {
-    list-style: none;
-    padding: 10px 15px;
-    border-radius: 0; /* Elimina los bordes redondeados si no los deseas */
-    width: auto; /* Ajusta el ancho automáticamente según el contenido */
-    flex: 1; /* Distribuye el espacio disponible equitativamente */
-    min-width: 100px; /* Ancho mínimo para evitar que se compriman demasiado */
-    position: relative;
-    background: white;
-    cursor: pointer;
-    height: 100%; /* Ocupa toda la altura del nav */
-    display: flex;
-    justify-content: center; /* Centra el contenido horizontalmente */
-    align-items: center;
-    user-select: none;
-    color: #0f1115;
-    white-space: nowrap; /* Evita que el texto se corte */
+}
+
+.searchCode {
+  font-weight: 700;
+  font-size: 10px;
+  background-color: var(--mantine-color-gray-0, #f8f9fa); /* Fondo del código de búsqueda */
+  border: 1px solid var(--mantine-color-gray-2, #dee2e6); /* Borde del código de búsqueda */
+}
+
+.mainLinks {
+  padding-left: calc(var(--mantine-spacing-md, 16px) - var(--mantine-spacing-xs, 8px));
+  padding-right: calc(var(--mantine-spacing-md, 16px) - var(--mantine-spacing-xs, 8px));
+  padding-bottom: var(--mantine-spacing-md, 16px);
+}
+
+.mainLink {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: var(--mantine-font-size-xs, 12px);
+  padding: 8px var(--mantine-spacing-xs, 8px);
+  border-radius: var(--mantine-radius-sm, 4px);
+  font-weight: 500;
+  color: var(--mantine-color-gray-7, #495057); /* Color del texto */
+
+  &:hover {
+    background-color: var(--mantine-color-gray-0, #f8f9fa); /* Fondo al hacer hover */
+    color: var(--mantine-color-gray-7, #495057); /* Color del texto al hacer hover */
   }
-  
-  .underline {
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--accent);
+}
+
+.mainLinkInner {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.mainLinkIcon {
+  margin-right: var(--mantine-spacing-sm, 12px);
+  color: var(--mantine-color-gray-6, #6c757d); /* Color del ícono */
+}
+
+.mainLinkBadge {
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.collections {
+  padding-left: calc(var(--mantine-spacing-md, 16px) - 6px);
+  padding-right: calc(var(--mantine-spacing-md, 16px) - 6px);
+  padding-bottom: var(--mantine-spacing-md, 16px);
+}
+
+.collectionsHeader {
+  padding-left: calc(var(--mantine-spacing-md, 16px) + 2px);
+  padding-right: var(--mantine-spacing-md, 16px);
+  margin-bottom: 5px;
+}
+
+.collectionLink {
+  display: block;
+  padding: 8px var(--mantine-spacing-xs, 8px);
+  text-decoration: none;
+  border-radius: var(--mantine-radius-sm, 4px);
+  font-size: var(--mantine-font-size-xs, 12px);
+  color: var(--mantine-color-gray-7, #495057); /* Color del texto */
+  line-height: 1;
+  font-weight: 500;
+
+  &:hover {
+    background-color: var(--mantine-color-gray-0, #f8f9fa); /* Fondo al hacer hover */
+    color: var(--mantine-color-gray-7, #495057); /* Color del texto al hacer hover */
   }
-  
-  .icon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1; /* Ocupa el espacio restante */
-    height: calc(100vh - 44px); /* Resta la altura del nav */
-  }
-  
-  .icon {
-    font-size: clamp(60px, 20vw, 128px); /* Ajusta el tamaño del icono responsivemente */
-  }
-  
-  /* Media Queries para Responsive Design (Opcional) */
-  @media (max-width: 768px) {
-    .icon {
-      font-size: 80px; /* Tamaño del icono en pantallas más pequeñas */
-    }
-    .tab {
-      font-size: 12px; /* Tamaño de la fuente en tabs más pequeños */
-      min-width: 80px;
-    }
-  }
-  
-  @media (max-width: 480px) { /* Ejemplo para móviles */
-    .icon {
-      font-size: 60px;
-    }
-  }
+}

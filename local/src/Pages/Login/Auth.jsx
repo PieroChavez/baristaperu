@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import "./Auth.css"; // Importa el archivo CSS
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -28,11 +29,9 @@ export default function Auth() {
       alert(data.message);
 
       if (isLogin) {
-        // Guarda el token en localStorage y redirige a Home
         localStorage.setItem("token", data.token);
       }
 
-      // Redirige a Home.jsx después de iniciar sesión o registrarse
       navigate("/");
     } catch (error) {
       alert(error.message);
@@ -40,36 +39,61 @@ export default function Auth() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 p-4">
-      <motion.div initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-        className="bg-white p-8 rounded-3xl shadow-xl w-full max-w-md text-center"
+    <div className="auth-container">
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="auth-card"
       >
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">{isLogin ? "Iniciar Sesión" : "Crear Cuenta"}</h2>
+        <h2>{isLogin ? "Iniciar Sesión" : "Crear Cuenta"}</h2>
 
-        <motion.form initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4 }}
-          onSubmit={handleSubmit} className="flex flex-col gap-4"
+        <motion.form
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4 }}
+          onSubmit={handleSubmit}
+          className="auth-form"
         >
           {!isLogin && (
-            <input type="text" name="name" placeholder="Nombre Completo" value={formData.name} onChange={handleChange}
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition shadow-sm" required
+            <input
+              type="text"
+              name="name"
+              placeholder="Nombre Completo"
+              value={formData.name}
+              onChange={handleChange}
+              required
             />
           )}
-          <input type="email" name="email" placeholder="Correo Electrónico" value={formData.email} onChange={handleChange}
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition shadow-sm" required
+          <input
+            type="email"
+            name="email"
+            placeholder="Correo Electrónico"
+            value={formData.email}
+            onChange={handleChange}
+            required
           />
-          <input type="password" name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange}
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition shadow-sm" required
+          <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            value={formData.password}
+            onChange={handleChange}
+            required
           />
-          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} type="submit"
-            className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold hover:bg-blue-600 transition"
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            type="submit"
+            className="auth-button"
           >
             {isLogin ? "Ingresar" : "Registrarse"}
           </motion.button>
         </motion.form>
 
-        <p className="mt-4 text-gray-600">
+        <p>
           {isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}{" "}
-          <button className="text-blue-500 hover:underline font-semibold" onClick={() => setIsLogin(!isLogin)}>
+          <button onClick={() => setIsLogin(!isLogin)}>
             {isLogin ? "Regístrate" : "Inicia Sesión"}
           </button>
         </p>
@@ -77,4 +101,3 @@ export default function Auth() {
     </div>
   );
 }
-  

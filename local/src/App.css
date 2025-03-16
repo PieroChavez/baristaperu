@@ -1,0 +1,9 @@
+body {
+    background: light-dark(#fff, #000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding-block: 2rem;
+  }
