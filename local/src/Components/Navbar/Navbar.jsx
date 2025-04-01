@@ -1,99 +1,63 @@
-// src/components/Navbar/Navbar.jsx
-import { IconBulb, IconCheckbox, IconPlus, IconSearch, IconUser } from '@tabler/icons-react';
-import {
-  ActionIcon,
-  Badge,
-  Box,
-  Code,
-  Group,
-  Text,
-  TextInput,
-  Tooltip,
-  UnstyledButton,
-} from '@mantine/core';
-//import { UserButton } from '../UserButton/UserButton'; // Asegúrate de tener este componente
-import './Navbar.css'; // Importa los estilos CSS
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import './Navbar.css';
 
-const links = [
-  { icon: IconBulb, label: 'Activity', notifications: 3 },
-  { icon: IconCheckbox, label: 'Tasks', notifications: 4 },
-  { icon: IconUser, label: 'Contacts' },
-];
+const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-const collections = [
-  { emoji: '👍', label: 'Sales' },
-  { emoji: '🚚', label: 'Deliveries' },
-  { emoji: '💸', label: 'Discounts' },
-  { emoji: '💰', label: 'Profits' },
-  { emoji: '✨', label: 'Reports' },
-  { emoji: '🛒', label: 'Orders' },
-  { emoji: '📅', label: 'Events' },
-  { emoji: '🙈', label: 'Debts' },
-  { emoji: '💁‍♀️', label: 'Customers' },
-];
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
 
-export function NavbarSearch() {
-  const mainLinks = links.map((link) => (
-    <UnstyledButton key={link.label} className="mainLink">
-      <div className="mainLinkInner">
-        <link.icon size={20} className="mainLinkIcon" stroke={1.5} />
-        <span>{link.label}</span>
-      </div>
-      {link.notifications && (
-        <Badge size="sm" variant="filled" className="mainLinkBadge">
-          {link.notifications}
-        </Badge>
-      )}
-    </UnstyledButton>
-  ));
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const collectionLinks = collections.map((collection) => (
-    <a
-      href="#"
-      onClick={(event) => event.preventDefault()}
-      key={collection.label}
-      className="collectionLink"
-    >
-      <Box component="span" mr={9} fz={16}>
-        {collection.emoji}
-      </Box>{' '}
-      {collection.label}
-    </a>
-  ));
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
-    <nav className="navbar">
-      <div className="section">
-        []
+    <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''}`}>
+      <div className="navbar-logo">
+        <Link to="/">BaristasPeru</Link>
+      </div>
+      
+      <div className={`hamburger ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
 
-      <TextInput
-        placeholder="Search"
-        size="xs"
-        leftSection={<IconSearch size={12} stroke={1.5} />}
-        rightSectionWidth={70}
-        rightSection={<Code className="searchCode">Ctrl + K</Code>}
-        styles={{ section: { pointerEvents: 'none' } }}
-        mb="sm"
-      />
+      <ul className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
+        <li>
+          <Link to="/cafes">Cafés</Link>
+        </li>
+        <li>
+          <Link to="/cursos">Cursos</Link>
+        </li>
+        <li>
+          <Link to="/nosotros">Nosotros</Link>
+        </li>
+        
+        {/* Botón de Iniciar Sesión dentro del menú en modo móvil */}
+        <li className="navbar-actions-mobile">
+          <Link to="/login" className="navbar-button">
+            Iniciar Sesión
+          </Link>
+        </li>
+      </ul>
 
-      <div className="section">
-        <div className="mainLinks">{mainLinks}</div>
-      </div>
-
-      <div className="section">
-        <Group className="collectionsHeader" justify="space-between">
-          <Text size="xs" fw={500} c="dimmed">
-            Collections
-          </Text>
-          <Tooltip label="Create collection" withArrow position="right">
-            <ActionIcon variant="default" size={18}>
-              <IconPlus size={12} stroke={1.5} />
-            </ActionIcon>
-          </Tooltip>
-        </Group>
-        <div className="collections">{collectionLinks}</div>
+      {/* Botón de Iniciar Sesión fuera del menú en modo escritorio */}
+      <div className="navbar-actions">
+        <Link to="/login" className="navbar-button">
+          Iniciar Sesión
+        </Link>
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;

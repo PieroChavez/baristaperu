@@ -1,16 +1,23 @@
 import 'react'
 import './Home.css'
-//import { NavbarSearch } from '../../Components/Navbar/Navbar'
+// import SideMenu from '../../Components/Menu/Menu'
+
+
 const Home = () => {
   return (
-    <div className="home-container">
+    <>
+     <div className="home-container">
       
-        <h1 className="home-title">Bienvenido a Barista Estudios</h1>
-        <p className="home-subtitle">By Barista Estudios</p>
+      
+      <h1 className="home-title">Bienvenido a Barista Estudios</h1>
+      <p className="home-subtitle">By Barista Estudios</p>
+      
+     
+          
     
-            
-      
-    </div>
+  </div>
+    </>
+   
   )
 }
 
