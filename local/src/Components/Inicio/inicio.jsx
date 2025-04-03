@@ -1,73 +1,117 @@
-import { useEffect } from 'react';
-import navbarImages from '../../assets/images/Navbar/Navbar';
 import './inicio.css';
+import { useEffect, useRef } from 'react';
+import navbarImages from '../../assets/images/Navbar/Navbar'; // Importa navbarImages
 
 const Inicio = () => {
+  const carouselRef = useRef(null);
+  const listRef = useRef(null);
+  const runningTimeRef = useRef(null);
+
   useEffect(() => {
-    const slider = document.querySelector('.slider');
-    const nextButton = document.querySelector('.next');
-    const prevButton = document.querySelector('.prev');
-    const progressBar = document.querySelector('.progress-bar');
+    const nextBtn = carouselRef.current.querySelector('.next');
+    const prevBtn = carouselRef.current.querySelector('.prev');
+    const list = listRef.current;
+    const runningTime = runningTimeRef.current;
 
-    // Función para activar el cambio de imagen
-    const activate = (direction) => {
-      const items = document.querySelectorAll('.item');
-      if (direction === 'next') {
-        slider.appendChild(items[0]); // Mueve la primera imagen al final
-      } else if (direction === 'prev') {
-        slider.insertBefore(items[items.length - 1], items[0]); // Mueve la última imagen al inicio
+    const timeRunning = 3000;
+    const timeAutoNext = 7000;
+
+    const showSlider = (type) => {
+      const sliderItemsDom = list.querySelectorAll('.item');
+      if (type === 'next') {
+        list.appendChild(sliderItemsDom[0]);
+        carouselRef.current.classList.add('next');
+      } else {
+        list.prepend(sliderItemsDom[sliderItemsDom.length - 1]);
+        carouselRef.current.classList.add('prev');
       }
-      resetProgressBar();
+
+      setTimeout(() => {
+        carouselRef.current.classList.remove('next');
+        carouselRef.current.classList.remove('prev');
+      }, timeRunning);
+
+      resetTimeAnimation();
     };
 
-    // Función para reiniciar la barra de progreso
-    const resetProgressBar = () => {
-      progressBar.style.animation = 'none';
-      progressBar.offsetHeight; // Forzar el reflujo para reiniciar la animación
-      progressBar.style.animation = 'progress 7s linear infinite';
+    const resetTimeAnimation = () => {
+      runningTime.style.animation = 'none';
+      runningTime.offsetHeight; // Trigger reflow
+      runningTime.style.animation = 'runningTime 7s linear 1 forwards';
     };
 
-    // Agregar eventos a los botones
-    const handleNext = () => activate('next');
-    const handlePrev = () => activate('prev');
+    const handleNext = () => showSlider('next');
+    const handlePrev = () => showSlider('prev');
 
-    nextButton.addEventListener('click', handleNext);
-    prevButton.addEventListener('click', handlePrev);
+    nextBtn.addEventListener('click', handleNext);
+    prevBtn.addEventListener('click', handlePrev);
 
-    // Cambio automático de imágenes cada 7 segundos
-    const autoChange = setInterval(() => activate('next'), 7000);
+    const autoNext = setInterval(() => {
+      showSlider('next');
+    }, timeAutoNext);
 
-    // Limpieza de eventos y temporizador al desmontar el componente
+    resetTimeAnimation();
+
     return () => {
-      nextButton.removeEventListener('click', handleNext);
-      prevButton.removeEventListener('click', handlePrev);
-      clearInterval(autoChange);
+      nextBtn.removeEventListener('click', handleNext);
+      prevBtn.removeEventListener('click', handlePrev);
+      clearInterval(autoNext);
     };
   }, []);
 
   return (
-    <main>
-      <ul className="slider">
-        {navbarImages.map((slide, index) => (
-          <li
-            key={index}
-            className="item"
-            style={{ backgroundImage: `url(${slide.image})` }}
-          >
-            <div className="content">
-              <h2 className="title">{slide.title}</h2>
-              <p className="description">{slide.description}</p>
-              <button className="btn btn-primary">Iniciar</button>
+    <div>
+      <header>
+        <nav></nav>
+      </header>
+
+      <div className="carousel" ref={carouselRef}>
+        <div className="list" ref={listRef}>
+          {navbarImages.map((item, index) => (
+            <div
+              key={index}
+              className="item"
+              style={{ backgroundImage: `url(${item.image})` }}
+            >
+              <div className="content">
+                <div className="title">{item.title}</div>
+                <div className="name">{item.alt}</div>
+                <div className="des">{item.description}</div>
+                <div className="btn">
+                  <button
+                    onClick={() => {
+                      window.location.href = '/login';
+                    }}
+                  >
+                    Conocer
+                  </button>
+
+                  <button
+                    className="cn"
+                    onClick={() => {
+                      window.open(
+                        'https://wa.me/51962387203?text=¡Hola!%20Estoy%20interesado%20en%20contactarte.',
+                        '_blank'
+                      );
+                    }}
+                  >
+                    Contactar
+                  </button>
+                </div>
+              </div>
             </div>
-          </li>
-        ))}
-      </ul>
-      <div className="progress-bar"></div>
-      <nav className="nav">
-        <button className="btn prev">&#9664;</button>
-        <button className="btn next">&#9654;</button>
-      </nav>
-    </main>
+          ))}
+        </div>
+
+        <div className="arrows">
+          <button className="prev">&lt;</button>
+          <button className="next">&gt;</button>
+        </div>
+
+        <div className="timeRunning" ref={runningTimeRef}></div>
+      </div>
+
+    </div>
   );
 };
 

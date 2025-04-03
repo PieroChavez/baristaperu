@@ -1,10 +1,10 @@
 import 'react'
 import './Home.css'
-import Navbar from '../../Components/Navbar/Navbar'
+import Paginations from '../../Components/Paginations/Paginations';
 //import { NavbarSearch } from '../../Components/Navbar/Navbar'
 const Home = () => {
   return (
-    <> <Navbar/>
+    <> 
     <div className="home-container">
       
       
@@ -14,6 +14,7 @@ const Home = () => {
             
       
     </div>
+    <Paginations/>
     </>
   )
 }
