@@ -1,63 +1,60 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import './Navbar.css';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
-const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const collections = [
+  { emoji: '👍', label: 'Sales' },
+  { emoji: '🚚', label: 'Deliveries' },
+  { emoji: '💸', label: 'Discounts' },
+  { emoji: '💰', label: 'Profits' },
+  { emoji: '✨', label: 'Reports' },
+  { emoji: '🛒', label: 'Orders' },
+  { emoji: '📅', label: 'Events' },
+  { emoji: '🙈', label: 'Debts' },
+  { emoji: '💁‍♀️', label: 'Customers' },
+];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
+const NavbarComponent = () => {
   return (
-    <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''}`}>
-      <div className="navbar-logo">
-        <Link to="/">BaristasPeru</Link>
-      </div>
-      
-      <div className={`hamburger ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-
-      <ul className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
-        <li>
-          <Link to="/cafes">Cafés</Link>
-        </li>
-        <li>
-          <Link to="/cursos">Cursos</Link>
-        </li>
-        <li>
-          <Link to="/nosotros">Nosotros</Link>
-        </li>
-        
-        {/* Botón de Iniciar Sesión dentro del menú en modo móvil */}
-        <li className="navbar-actions-mobile">
-          <Link to="/login" className="navbar-button">
-            Iniciar Sesión
-          </Link>
-        </li>
-      </ul>
-
-      {/* Botón de Iniciar Sesión fuera del menú en modo escritorio */}
-      <div className="navbar-actions">
-        <Link to="/login" className="navbar-button">
-          Iniciar Sesión
-        </Link>
-      </div>
-    </nav>
+    <Navbar expand="lg" className="bg-body-tertiary">
+      <Container fluid>
+        <Navbar.Brand href="#">Baristas Perú</Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+          <Nav
+            className="me-auto my-2 my-lg-0"
+            style={{ maxHeight: '100px' }}
+            navbarScroll
+          >
+            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#about">About</Nav.Link>
+            <NavDropdown title="Options" id="navbarScrollingDropdown">
+              {collections.map((item, index) => (
+                <NavDropdown.Item key={index} href={`#${item.label.toLowerCase()}`}>
+                  {item.emoji} {item.label}
+                </NavDropdown.Item>
+              ))}
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#contact">Contact Us</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+          <Form className="d-flex">
+            <Form.Control
+              type="search"
+              placeholder="Search"
+              className="me-2"
+              aria-label="Search"
+            />
+            <Button variant="outline-success">Search</Button>
+          </Form>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 
-export default Navbar;
+export default NavbarComponent;

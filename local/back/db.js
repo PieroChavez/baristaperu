@@ -1,37 +1,27 @@
-// db.js
-const sql = require('mssql');
-require('dotenv').config();
+const sql = require("mssql");
 
-const config = {
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  server: process.env.DB_SERVER,
-  database: process.env.DB_DATABASE,
+const dbConfig = {
+  user: "root",
+  password: "",
+
+  server: "PIERO-CHAVEZ\SQLEXPRESS", // Cambia según tu configuración
+  database: "Baristas",
+  
   options: {
-    encrypt: true,
-    trustServerCertificate: true,
-    connectTimeout: 60000, // Aumenta el tiempo de espera a 60 segundos
-    requestTimeout: 60000, // Aumenta el tiempo de espera para las consultas
+    encrypt: false, // Cambia a true si usas Azure
+    trustServerCertificate: true, // Evita errores de certificado
   },
 };
 
-async function connect() {
+ async function connectDB() {
   try {
-    await sql.connect(config);
-    console.log('Conexión a SQL Server establecida');
-  } catch (err) {
-    console.error('Error al conectar a SQL Server:', err);
-    throw err;
+    const pool = await sql.connect(dbConfig);
+    console.log("✅ Conectado a SQL Server");
+    return pool;
+  } catch (error) {
+    console.error("❌ Error en la conexión a SQL Server:", error);
   }
 }
 
-async function close() {
-  try {
-    await sql.close();
-    console.log('Conexión a SQL Server cerrada');
-  } catch (err) {
-    console.error('Error al cerrar la conexión:', err);
-  }
-}
+module.exports = { connectDB, sql };
 
-module.exports = { connect, close, sql };

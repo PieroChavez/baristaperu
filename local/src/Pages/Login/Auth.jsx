@@ -14,43 +14,27 @@ export default function Auth() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const endpoint = isLogin ? "/api/auth/login" : "/api/auth/register";
 
     try {
-      // Conectar a la base de datos
-      await connect();
+      const response = await fetch(`http://localhost:3000${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
+
+      alert(data.message);
 
       if (isLogin) {
-        // Consulta para login
-        const result = await sql.query`
-          SELECT UserID, Name, Email
-          FROM Users
-          WHERE Email = ${formData.email} AND PasswordHash = ${formData.password}
-        `;
-
-        if (result.recordset.length > 0) {
-          const user = result.recordset[0];
-          alert(`Bienvenido, ${user.Name}`);
-          localStorage.setItem("token", "fake-token"); // Simulación de token
-          navigate("/"); // Redirigir a la página principal
-        } else {
-          throw new Error("Credenciales incorrectas");
-        }
-      } else {
-        // Consulta para registro
-        const result = await sql.query`
-          INSERT INTO Users (Name, Email, PasswordHash)
-          VALUES (${formData.name}, ${formData.email}, ${formData.password})
-        `;
-        console.log(result); // Log the result to use the variable
-
-        alert("Usuario registrado exitosamente");
-        setIsLogin(true); // Cambiar a la vista de login
+        localStorage.setItem("token", data.token);
       }
+
+      navigate("/");
     } catch (error) {
       alert(error.message);
-    } finally {
-      // Cerrar la conexión
-      await close();
     }
   };
 
