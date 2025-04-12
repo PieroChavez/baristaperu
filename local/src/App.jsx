@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+
+
 // import components
 import NavbarComponent from "./Components/Navbar/Navbar";
 
@@ -12,7 +14,6 @@ import Footer from "./Components/Footer/Footer"; // Componente de pie de página
 import "./App.css"; // Importa los estilos globales
 import '@mantine/core/styles.css'; // Estilos de Mantine
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Cards from "./Components/Cards/Cards";
 
 
 
@@ -40,8 +41,9 @@ function App() {
 
           {/* https://codepen.io/ReGGae/pen/bmyYEj  */}
         </Routes>
-        <Cards/>
+        
       </Router>
+      
 
       <Footer />
     </>
