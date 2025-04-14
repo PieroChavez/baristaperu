@@ -1,5 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Auth from "./Pages/Login/Auth"; // Pantalla de autenticación (Login)
+
+
+
+// import components
+import NavbarComponent from "./Components/Navbar/Navbar";
+
+import Login from "./Pages/Login/Login"; // Pantalla de autenticación (Login)
 //import Register from "./Pages/Register/Register"; // Pantalla de registro
 import Home from "./Pages/Home/Home"; // Pantalla de inicio
 //import Profile from "./Pages/Profile/Profile"; // Pantalla de perfil
@@ -15,12 +21,13 @@ function App() {
   return (
     <>
       <Router>
+      <NavbarComponent />
         <Routes>
           {/* Ruta principal */}
           <Route path="/" element={<Inicio />} />
 
           {/* Ruta para Login */}
-          <Route path="/auth" element={<Auth />} />
+          <Route path="/Login" element={<Login />} />
 
           {/* Ruta para Registro          <Route path="/register" element={<Register />} />
  */}
@@ -28,10 +35,16 @@ function App() {
           {/* Ruta para Home */}
           <Route path="/home" element={<Home />} />
 
-          {/* Ruta para Perfil             <Route path="/profile" element={< />} />
-*/}
+
+
+
+
+          {/* https://codepen.io/ReGGae/pen/bmyYEj  */}
         </Routes>
+        
       </Router>
+      
+
       <Footer />
     </>
   );

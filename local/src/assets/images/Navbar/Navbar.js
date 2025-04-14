@@ -3,7 +3,7 @@ import productor from './productor.png';
 import tostador from './tostador.png';
 import capuccino from './capuccino.png';
 import catador from './catador.jpg';
-// import cafeteria from './cafeteria.png';
+import cafeteria from './cafeteria.jpg';
 import coffeeLover from './coffeelover.jpg';
 
 // Define las imágenes con sus descripciones
@@ -29,11 +29,11 @@ const navbarImages = [
     title: 'Catador',
     description: 'Profesional que evalúa la calidad y el perfil de sabor del café.',
   },
-  // {
-  //   image: cafeteria,
-  //   title: 'Cafetería',
-  //   description: 'El lugar donde los amantes del café se reúnen para disfrutar de su bebida favorita.',
-  // },
+   {
+     image: cafeteria,
+     title: 'Cafetería',
+     description: 'El lugar donde los amantes del café se reúnen para disfrutar de su bebida favorita.',
+   },
    {
      image: coffeeLover,
      title: 'Coffee Lover',

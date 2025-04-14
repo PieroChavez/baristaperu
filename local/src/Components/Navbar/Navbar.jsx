@@ -6,19 +6,19 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-const collections = [
-  { emoji: '👍', label: 'Sales' },
-  { emoji: '🚚', label: 'Deliveries' },
-  { emoji: '💸', label: 'Discounts' },
-  { emoji: '💰', label: 'Profits' },
-  { emoji: '✨', label: 'Reports' },
-  { emoji: '🛒', label: 'Orders' },
-  { emoji: '📅', label: 'Events' },
-  { emoji: '🙈', label: 'Debts' },
-  { emoji: '💁‍♀️', label: 'Customers' },
-];
-
 const NavbarComponent = () => {
+  const collections = [
+    { emoji: '👍', label: 'Sales' },
+    { emoji: '🚚', label: 'Deliveries' },
+    { emoji: '💸', label: 'Discounts' },
+    { emoji: '💰', label: 'Profits' },
+    { emoji: '✨', label: 'Reports' },
+    { emoji: '🛒', label: 'Orders' },
+    { emoji: '📅', label: 'Events' },
+    { emoji: '🙈', label: 'Debts' },
+    { emoji: '💁‍♀️', label: 'Customers' },
+  ];
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
@@ -30,7 +30,7 @@ const NavbarComponent = () => {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="home">Nosotros</Nav.Link>
             <Nav.Link href="#about">About</Nav.Link>
             <NavDropdown title="Options" id="navbarScrollingDropdown">
               {collections.map((item, index) => (

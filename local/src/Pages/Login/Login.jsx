@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import "./Auth.css"; // Importa el archivo CSS
 
-export default function Auth() {
+export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const navigate = useNavigate();
@@ -12,9 +12,9 @@ export default function Auth() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const login = async (e) => {
     e.preventDefault();
-    const endpoint = isLogin ? "/api/auth/login" : "/api/auth/register";
+    const endpoint = "/api/auth/login";
 
     try {
       const response = await fetch(`http://localhost:3000${endpoint}`, {
@@ -28,10 +28,28 @@ export default function Auth() {
 
       alert(data.message);
 
-      if (isLogin) {
-        localStorage.setItem("token", data.token);
-      }
+      localStorage.setItem("token", data.token);
+      navigate("/");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
+  const register = async (e) => {
+    e.preventDefault();
+    const endpoint = "/api/auth/register";
+
+    try {
+      const response = await fetch(`http://localhost:3000${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
+
+      alert(data.message);
       navigate("/");
     } catch (error) {
       alert(error.message);
@@ -52,7 +70,7 @@ export default function Auth() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4 }}
-          onSubmit={handleSubmit}
+          onSubmit={isLogin ? login : register}
           className="auth-form"
         >
           {!isLogin && (

@@ -1,12 +1,18 @@
 import 'react'
 import './Home.css'
-import Navbar from '../../Components/Navbar/Navbar'
+import Paginations from '../../Components/Paginations/Paginations';
+
+
+import { Button, HStack } from "@chakra-ui/react"
+
+
 //import { NavbarSearch } from '../../Components/Navbar/Navbar'
 import navbarImage from '../../assets/images/Navbar/alison.jpg'
 const Home = () => {
   return (
-    <> <Navbar/>
+    <> 
     <div className="home-container">
+<<<<<<< HEAD
     <button class="bg-blue text-indigo-600 hover:bg-indigo-600 hover:text-white ...">
   <svg class="size-5 fill-current ...">
   
@@ -23,6 +29,13 @@ const Home = () => {
 
   
 
+=======
+    <HStack>
+      <Button>Click me</Button>
+      <Button>Click me</Button>
+    </HStack>
+      
+>>>>>>> 1a93fbd375b0c167c4244e9212b584b2c8bd5917
       
         <h1 className="home-title">Bienvenido a Barista Estudios</h1>
         <p className="home-subtitle">By Barista Estudios</p>
@@ -76,6 +89,7 @@ const Home = () => {
   
       
     </div>
+    <Paginations/>
     </>
   )
 }
