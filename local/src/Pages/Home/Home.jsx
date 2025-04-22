@@ -3,89 +3,68 @@ import './Home.css'
 import Paginations from '../../Components/Paginations/Paginations';
 
 
-import { Button, HStack } from "@chakra-ui/react"
 
 
 //import { NavbarSearch } from '../../Components/Navbar/Navbar'
-import navbarImage from '../../assets/images/Navbar/alison.jpg'
 const Home = () => {
   return (
     <> 
     <div className="home-container">
-<<<<<<< HEAD
-    <button class="bg-blue text-indigo-600 hover:bg-indigo-600 hover:text-white ...">
-  <svg class="size-5 fill-current ...">
-  
-  </svg>
-  Check for updates
-</button>
-<button class="bg-white text-pink-600 hover:bg-pink-600 hover:text-white ...">
-  <svg class="size-5 stroke-current ..." fill="none">
+
+
+
+
+
     
-  </svg>
-  Download file
-</button>
+    <section className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--color-indigo-100),white)] opacity-20" />
+      <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl ring-1 shadow-indigo-600/10 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center" />
+      <div className="mx-auto max-w-2xl lg:max-w-4xl">
+        <img
+          alt=""
+          src="https://tailwindcss.com/plus-assets/img/logos/workcation-logo-indigo-600.svg"
+          className="mx-auto h-12"
+        />
+        <figure className="mt-10">
+          <blockquote className="text-center text-xl/8 font-semibold text-gray-900 sm:text-2xl/9">
+            <p>
+              “Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias
+              molestiae. Numquam corrupti in laborum sed rerum et corporis.”
+            </p>
+          </blockquote>
+          <figcaption className="mt-10">
+            <img
+              alt=""
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              className="mx-auto size-10 rounded-full"
+            />
+            <div className="mt-4 flex items-center justify-center space-x-3 text-base">
+              <div className="font-semibold text-gray-900">Judith Black</div>
+              <svg width={3} height={3} viewBox="0 0 2 2" aria-hidden="true" className="fill-gray-900">
+                <circle r={1} cx={1} cy={1} />
+              </svg>
+              <div className="text-gray-600">CEO of Workcation</div>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  
+  
 
 
   
 
-=======
-    <HStack>
-      <Button>Click me</Button>
-      <Button>Click me</Button>
-    </HStack>
       
->>>>>>> 1a93fbd375b0c167c4244e9212b584b2c8bd5917
       
         <h1 className="home-title">Bienvenido a Barista Estudios</h1>
-        <p className="home-subtitle">By Barista Estudios</p>
+      
         
     
 
 
-{/*<div
 
 
-  <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-  <button class="text-white px-4 sm:px-8 py-2 sm:py-3 bg-sky-700 hover:bg-sky-800">Submit</button>
-  <article>
-  <time>Mar 10, 2020</time>
-  <h2>Boost your conversion rate</h2>
-  <p class="line-clamp-3">
-    Nulla dolor velit adipisicing duis excepteur esse in duis nostrud occaecat mollit incididunt deserunt sunt. Ut ut
-    sunt laborum ex occaecat eu tempor labore enim adipisicing minim ad. Est in quis eu dolore occaecat excepteur fugiat
-    dolore nisi aliqua fugiat enim ut cillum. Labore enim duis nostrud eu. Est ut eiusmod consequat irure quis deserunt
-    ex. Enim laboris dolor magna pariatur. Dolor et ad sint voluptate sunt elit mollit officia ad enim sit consectetur
-    enim.
-  </p>
-  <div>
-    <img src="/img/lindsay.jpg" />
-    Lindsay Walton
-  </div>
-</article>
-      className="bg-fixed bg-cover bg-center min-h-screen flex items-center justify-center"
-      style={{ backgroundImage: `url(${navbarImage})` }}
-    >
-       Mountain
-        
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec venenatis enim. Donec euismod, nisi eget
-          consectetur sagittis, nisl nunc aliquet nunc, eget tincidunt nisl nunc eget nisi.
-        
-      
-
-</div> */}
-
-
-
-{/*<div
-  className="bg-center bg-repeat w-full h-64" // agrega tus clases de tamaño
-  style={{ backgroundImage: `url(${navbarImage})` }}
-></div>*/}
-<svg class="fill-blue-500 ...">
-  
-</svg>
   
       
     </div>
