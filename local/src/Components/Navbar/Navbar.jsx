@@ -26,7 +26,7 @@ const NavbarComponent = () => {
       <Oferta />
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container fluid>
-          <Navbar.Brand href="#">Baristas Perú</Navbar.Brand>
+          <Navbar.Brand href="/">Baristas Perú</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav className="mx-auto" navbarScroll>

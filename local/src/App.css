@@ -1,78 +1,7 @@
 /* Asegurar que todos los textos sean negros */
 * {
-  color: black; /* Color negro para todos los elementos */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-
-/* Estilo global para el texto */
-body {
-  color: black; /* Color negro para todo el texto */
-  background-color: #ffffff; /* Fondo blanco */
-  display: flex;
-
-  justify-content: center;
-  flex-direction: column;
- 
-  font-family: 'Arial', sans-serif; /* Fuente predeterminada */
-}
-
-
-
-:root {
-  --cafe-espresso: #4B2E2E;
-  --caramelo: #A36A3F;
-  --verde-hoja: #5A7D3A;
-  --marfil: #FAF3E0;
-  --rojo-cereza: #B42B34;
-}
-
-body::before {
-  --size: 45px; /* Tamaño del patrón */
-  --line: rgba(128, 128, 128, 0.3); /* Color de las líneas (gris claro con transparencia) */
-  content: '';
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  background: linear-gradient(
-        90deg,
-        var(--line) 1px,
-        transparent 1px var(--size)
-      )
-      50% 50% / var(--size) var(--size),
-    linear-gradient(
-        var(--line) 1px,
-        transparent 1px var(--size)
-      )
-      50% 50% / var(--size) var(--size);
-  background-color: #ffffff; /* Fondo blanco */
-  top: 0;
-  left: 0;
-  z-index: -1; /* Asegura que esté detrás del contenido */
-}
-
-
-
-/* Estilo para encabezados */
-h1, h2, h3, h4, h5, h6 {
-  color: black; /* Asegura que los encabezados sean negros */
-}
-
-/* Estilo para párrafos */
-p {
-  color: black; /* Asegura que los párrafos sean negros */
-}
-
-/* Estilo para enlaces */
-a {
-  color: black; /* Color negro para enlaces */
-  text-decoration: none; /* Sin subrayado */
-}
-
-a:hover {
-  text-decoration: underline; /* Subrayado al pasar el cursor */
-}
-
-/* Contenedor principal para ocupar toda la pantalla */

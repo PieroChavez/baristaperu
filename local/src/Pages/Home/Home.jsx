@@ -1,7 +1,6 @@
 import 'react'
 import './Home.css'
-import Paginations from '../../Components/Paginations/Paginations';
-
+//import Paginations from '../../Components/Paginations/Paginations';
 
 
 
@@ -9,13 +8,7 @@ import Paginations from '../../Components/Paginations/Paginations';
 const Home = () => {
   return (
     <> 
-    <div className="home-container">
-
-
-
-
-
-    
+    <div className="home-container">    
     <section className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--color-indigo-100),white)] opacity-20" />
       <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl ring-1 shadow-indigo-600/10 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center" />
@@ -49,26 +42,44 @@ const Home = () => {
         </figure>
       </div>
     </section>
-  
-  
 
 
-  
-
-      
-      
-        <h1 className="home-title">Bienvenido a Barista Estudios</h1>
-      
-        
-    
+    <div className="flex bg-gray-100 min-h-screen">
+      {/* Sidebar */}
+     
 
 
+      {/* Contenido principal */}
+       
 
+        <div className="p-6">
+          <p>DashboardCards</p>
 
-  
+          <h2 className="text-2xl font-bold mb-4">Últimos Posts</h2>
+          {/* Lista de posts */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <p> Post</p>
+            <p> Post</p>
+            <p> Post</p>
+          </div>
+        </div>
       
     </div>
-    <Paginations/>
+  
+   
+    
+   
+  
+  
+
+
+  
+
+      
+      
+     
+    </div>
+   
     </>
   )
 }

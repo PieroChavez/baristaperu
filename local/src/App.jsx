@@ -1,27 +1,26 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-
-
-// import components
+// Importa componentes
 import NavbarComponent from "./Components/Navbar/Navbar";
-
 import Login from "./Pages/Login/Login"; // Pantalla de autenticación (Login)
-//import Register from "./Pages/Register/Register"; // Pantalla de registro
 import Home from "./Pages/Home/Home"; // Pantalla de inicio
-//import Profile from "./Pages/Profile/Profile"; // Pantalla de perfil
 import Inicio from "./Components/Inicio/inicio"; // Pantalla de inicio principal
 import Footer from "./Components/Footer/Footer"; // Componente de pie de página
-import "./App.css"; // Importa los estilos globales
-import '@mantine/core/styles.css'; // Estilos de Mantine
-import 'bootstrap/dist/css/bootstrap.min.css';
 
+// Importa estilos
+import "./App.css"; // Estilos globales
+import "@mantine/core/styles.css"; // Estilos de Mantine
+import "bootstrap/dist/css/bootstrap.min.css";
 
+// Importa Theme de Radix
+//import { Theme } from "@radix-ui/themes";
+//import { ThemePanel } from "@radix-ui/themes";
 
 function App() {
   return (
     <>
       <Router>
-      <NavbarComponent />
+        <NavbarComponent />
         <Routes>
           {/* Ruta principal */}
           <Route path="/" element={<Inicio />} />
@@ -29,23 +28,13 @@ function App() {
           {/* Ruta para Login */}
           <Route path="/Login" element={<Login />} />
 
-          {/* Ruta para Registro          <Route path="/register" element={<Register />} />
- */}
-
           {/* Ruta para Home */}
           <Route path="/home" element={<Home />} />
-
-
-
-
-
-          {/* https://codepen.io/ReGGae/pen/bmyYEj  */}
         </Routes>
-        
+        <Footer />
       </Router>
-      
+      {/*<ThemePanel />*/}
 
-      <Footer />
     </>
   );
 }
