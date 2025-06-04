@@ -4,6 +4,7 @@ import Home from './components/Pages/Home/Home'
 import Index from './components/Pages/Index'
 import Profile from './components/Pages/Home/Profile'
 import Navbar from './components/Layaouts/Navbar'
+import Footer from './components/Layaouts/Footer'
 
 // Componente de ruta privada
 function PrivateRoute({ children }) {
@@ -41,6 +42,7 @@ function App() {
         <Route path="/Home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
+      <Footer />
     </HashRouter>
   )
 }

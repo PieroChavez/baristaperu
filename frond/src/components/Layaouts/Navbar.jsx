@@ -1,16 +1,3 @@
-'use client'
-
-
-import {
- // HomeIcon,
- // UserGroupIcon,
- // ChatBubbleLeftEllipsisIcon,
- // BellIcon,
-
- // MagnifyingGlassIcon,
- // CogIcon,
- // ArrowRightOnRectangleIcon,
-} from '@heroicons/react/24/outline';
 
 import { Fragment, useState } from 'react'
 import {
@@ -27,6 +14,9 @@ import {
   TabPanel,
   TabPanels,
 } from '@headlessui/react'
+
+import { Banderas } from '@/assets/Banderas/Banderas';
+
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { NavLink, Link } from 'react-router-dom';
 
@@ -282,10 +272,10 @@ export default function Navbar() {
                   <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
                     <img
                       alt=""
-                      src="https://tailwindcss.com/plus-assets/img/flags/flag-canada.svg"
+                      src="https://tailwindcss.com/plus-assets/img/flags/flag-peru.svg"
                       className="block h-auto w-5 shrink-0"
                     />
-                    <span className="ml-3 block text-sm font-medium">CAD</span>
+                    <span className="ml-3 block text-sm font-medium">PEN</span>
                     <span className="sr-only">, change currency</span>
                   </a>
                 </div>
@@ -411,8 +401,8 @@ export default function Navbar() {
 
             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
               <div className="flow-root">
-                <NavLink to="/Login" className="-m-2 block p-2 font-medium text-gray-900">
-                  Sign in
+                <NavLink to="/Home" className="-m-2 block p-2 font-medium text-gray-900">
+                  iniciar
                 </NavLink>
               </div>
               <div className="flow-root">
@@ -426,8 +416,8 @@ export default function Navbar() {
               {/* Este sigue siendo un <a> porque no es una ruta interna */}
               <a href="#" className="-m-2 flex items-center p-2">
                 <img
-                  alt=""
-                  src="https://tailwindcss.com/plus-assets/img/flags/flag-canada.svg"
+                  alt="Peru"
+                  src={Banderas[0].Imagen}
                   className="block h-auto w-5 shrink-0"
                 />
                 <span className="ml-3 block text-base font-medium text-gray-900">CAD</span>

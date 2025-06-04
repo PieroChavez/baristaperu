@@ -1,15 +1,15 @@
-
-
-
-
-
-
-
-
-
-import { Box, useMediaQuery, Typography } from "@mui/material";
+import { Box, useMediaQuery, Typography, Avatar, IconButton, Stack, Link as MuiLink } from "@mui/material";
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import EventIcon from '@mui/icons-material/Event';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import EmailIcon from '@mui/icons-material/Email';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { useState, useEffect } from "react";
 import {Rol} from "../../../assets/RolUser/Rol";
+import Stories from "@/components/Layaouts/Stories";
 //import Team from "../../Components/Cards/Team";
 
 const Home = () => {
@@ -51,36 +51,91 @@ const Home = () => {
     <Box>
       <Box
         width="100%"
-        padding="5rem 6%"
+        padding={isNonMobileScreens ? "4.5rem 1%" : "4rem 0.5rem"}
         display={isNonMobileScreens ? "flex" : "block"}
         gap="0.5rem"
         justifyContent="space-between"
       >
         {/* Columna izquierda */}
-        <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
+        <Box
+          flexBasis={isNonMobileScreens ? "22%" : "100%"}
+          mb={isNonMobileScreens ? 0 : 2}
+        >
           <Box
             p="1rem"
             bgcolor="#f9fafb"
             borderRadius="1rem"
             boxShadow="0 0 10px rgba(0,0,0,0.1)"
-            textAlign="center"
+            display="flex"
+            alignItems="center"
+            gap={2}
+            flexDirection={isNonMobileScreens ? "row" : "column"}
           >
-            <img
+            {/* Imagen a la izquierda */}
+            <Avatar
               src={user.picturePath}
               alt="Usuario"
-              style={{ borderRadius: "50%", width: "80px", marginBottom: "1rem" }}
+              sx={{ width: 100, height: 100 }}
             />
-            <Typography variant="h6">{user.name}</Typography>
-            <Typography variant="body2" color="textSecondary">
-              {user.rol}
-            </Typography>
+            {/* Info a la derecha */}
+            <Box flex="1" width="100%">
+              <Typography variant="h6" align={isNonMobileScreens ? "inherit" : "center"}>
+                {user.name}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" align={isNonMobileScreens ? "inherit" : "center"}>
+                {user.rol}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" align={isNonMobileScreens ? "inherit" : "center"}>
+                País: Perú
+              </Typography>
+              <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }} align={isNonMobileScreens ? "inherit" : "center"}>
+                Breve descripción del usuario...
+              </Typography>
+              {/* Estadísticas */}
+              <Stack direction="row" spacing={2} sx={{ mt: 1 }} justifyContent={isNonMobileScreens ? "flex-start" : "center"}>
+                <Box textAlign="center">
+                  <Typography variant="subtitle2" fontWeight="bold">12</Typography>
+                  <Typography variant="caption" color="textSecondary">Publicaciones</Typography>
+                </Box>
+                <Box textAlign="center">
+                  <Typography variant="subtitle2" fontWeight="bold">120</Typography>
+                  <Typography variant="caption" color="textSecondary">Seguidores</Typography>
+                </Box>
+                <Box textAlign="center">
+                  <Typography variant="subtitle2" fontWeight="bold">80</Typography>
+                  <Typography variant="caption" color="textSecondary">Seguidos</Typography>
+                </Box>
+              </Stack>
+              {/* Redes sociales */}
+              <Stack direction="row" spacing={1} sx={{ mt: 1 }} justifyContent={isNonMobileScreens ? "flex-start" : "center"}>
+                <MuiLink href="https://facebook.com" target="_blank" color="inherit">
+                  <IconButton size="small"><FacebookIcon /></IconButton>
+                </MuiLink>
+                <MuiLink href="https://instagram.com" target="_blank" color="inherit">
+                  <IconButton size="small"><InstagramIcon /></IconButton>
+                </MuiLink>
+                <MuiLink href="https://github.com" target="_blank" color="inherit">
+                  <IconButton size="small"><GitHubIcon /></IconButton>
+                </MuiLink>
+                <MuiLink href="mailto:correo@ejemplo.com" color="inherit">
+                  <IconButton size="small"><EmailIcon /></IconButton>
+                </MuiLink>
+                <MuiLink
+                  href="https://wa.me/51999999999"
+                  target="_blank"
+                  color="inherit"
+                >
+                  <IconButton size="small"><WhatsAppIcon /></IconButton>
+                </MuiLink>
+              </Stack>
+            </Box>
           </Box>
         </Box>
 
         {/* Columna central */}
         <Box
-          flexBasis={isNonMobileScreens ? "42%" : undefined}
-          mt={isNonMobileScreens ? undefined : "2rem"}
+          flexBasis={isNonMobileScreens ? "56%" : "100%"}
+          mt={isNonMobileScreens ? undefined : 2}
         >
           <Box
             p="1rem"
@@ -89,7 +144,12 @@ const Home = () => {
             mb="1rem"
             boxShadow="0 0 10px rgba(0,0,0,0.1)"
           >
-            <Typography variant="h6">
+            <Typography variant="h6" display="flex" alignItems="center" gap={1}>
+              <Avatar
+                src={user.picturePath}
+                alt={user.name}
+                sx={{ width: 32, height: 32, mr: 1 }}
+              />
               ¡Hola {user.name}! ¿En qué estás pensando?
             </Typography>
             <input
@@ -103,7 +163,40 @@ const Home = () => {
                 border: "1px solid #ccc",
               }}
             />
+            <Box
+              display="flex"
+              justifyContent="center" // Cambia esto para ajustar la distribución horizontal
+              alignItems="center"
+              gap={7}                 // Cambia este valor para acercar o separar los iconos
+              mt={2}
+            >
+              <Box display="flex" flexDirection="column" alignItems="center">
+                <IconButton size="small" color="primary">
+                  <PhotoCameraIcon />
+                </IconButton>
+                <Typography variant="caption" color="textSecondary">
+                  Foto
+                </Typography>
+              </Box>
+              <Box display="flex" flexDirection="column" alignItems="center">
+                <IconButton size="small" color="primary">
+                  <EventIcon />
+                </IconButton>
+                <Typography variant="caption" color="textSecondary">
+                  Evento
+                </Typography>
+              </Box>
+              <Box display="flex" flexDirection="column" alignItems="center">
+                <IconButton size="small" color="primary">
+                  <MenuBookIcon />
+                </IconButton>
+                <Typography variant="caption" color="textSecondary">
+                  Blog
+                </Typography>
+              </Box>
+            </Box>
           </Box>
+          <Stories />
 
           {posts.map((post) => (
             <Box
@@ -124,7 +217,7 @@ const Home = () => {
 
         {/* Columna derecha */}
         {isNonMobileScreens && (
-          <Box flexBasis="26%">
+          <Box flexBasis="22%">
             <Box
               p="1rem"
               bgcolor="#fff3cd"
@@ -146,7 +239,6 @@ const Home = () => {
             >
               <Typography variant="h6">Amigos</Typography>
               <Typography variant="body2"> {/*<Team/>*/} </Typography>
-              
             </Box>
           </Box>
         )}
