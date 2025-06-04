@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ImgPortada } from '@/assets/ImgPortada/ImgPortada'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 function getRandomImages(arr, count) {
   // Mezcla el array y toma los primeros 'count'
@@ -101,12 +101,12 @@ const Index = () => {
                   </div>
                 </div>
 
-                <Link
+                <NavLink
                   to="/Login"
                   className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700"
                 >
                   Iniciar
-                </Link>
+                </NavLink>
               </div>
             </div>
           </div>
