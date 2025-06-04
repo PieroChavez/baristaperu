@@ -28,6 +28,7 @@ import {
   TabPanels,
 } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom';
 
 const navigation = {
   categories: [
@@ -164,13 +165,6 @@ export default function Navbar() {
         className="fixed top-0 left-0 w-full z-50 bg-white shadow"
         style={{ minHeight: 64 }}
       >
-        {/* <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-          Get free delivery on orders over $100
-        </p>*/}
-       
-        
-        
-
         <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
@@ -186,15 +180,10 @@ export default function Navbar() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <a href="/">
+                <Link to="/">
                   <span className="sr-only">BARISTAS</span>
                   <h1>BARISTAS</h1>
-                  {/* <img
-                    alt=""
-                    src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                    className="h-8 w-auto"
-                  />*/}
-                </a>
+                </Link>
               </div>
                
 
@@ -227,10 +216,10 @@ export default function Navbar() {
                                       src={item.imageSrc}
                                       className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
                                     />
-                                    <a href={item.href} className="mt-6 block font-medium text-gray-900">
+                                    <Link to={item.href} className="mt-6 block font-medium text-gray-900">
                                       <span aria-hidden="true" className="absolute inset-0 z-10" />
                                       {item.name}
-                                    </a>
+                                    </Link>
                                     <p aria-hidden="true" className="mt-1">
                                       Shop now
                                     </p>
@@ -250,9 +239,9 @@ export default function Navbar() {
                                     >
                                       {section.items.map((item) => (
                                         <li key={item.name} className="flex">
-                                          <a href={item.href} className="hover:text-gray-800">
+                                          <Link to={item.href} className="hover:text-gray-800">
                                             {item.name}
-                                          </a>
+                                          </Link>
                                         </li>
                                       ))}
                                     </ul>
@@ -267,26 +256,26 @@ export default function Navbar() {
                   ))}
 
                   {navigation.pages.map((page) => (
-                    <a
+                    <Link
                       key={page.name}
-                      href={page.href}
+                      to={page.href}
                       className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
                       {page.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </PopoverGroup>
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <Link to="/Login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Sign in
-                  </a>
+                  </Link>
                   <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
-                  <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <Link to="/Login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Create account
-                  </a>
+                  </Link>
                 </div>
 
                 <div className="hidden lg:ml-8 lg:flex">
@@ -375,10 +364,10 @@ export default function Navbar() {
                             src={item.imageSrc}
                             className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
                           />
-                          <a href={item.href} className="mt-6 block font-medium text-gray-900">
+                          <Link to={item.href} className="mt-6 block font-medium text-gray-900">
                             <span aria-hidden="true" className="absolute inset-0 z-10" />
                             {item.name}
-                          </a>
+                          </Link>
                           <p aria-hidden="true" className="mt-1">
                             Shop now
                           </p>
@@ -397,9 +386,9 @@ export default function Navbar() {
                         >
                           {section.items.map((item) => (
                             <li key={item.name} className="flow-root">
-                              <a href={item.href} className="-m-2 block p-2 text-gray-500">
+                              <Link to={item.href} className="-m-2 block p-2 text-gray-500">
                                 {item.name}
-                              </a>
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -413,28 +402,25 @@ export default function Navbar() {
             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
               {navigation.pages.map((page) => (
                 <div key={page.name} className="flow-root">
-                  <a href={page.href} className="-m-2 block p-2 font-medium text-gray-900">
+                  <Link to={page.href} className="-m-2 block p-2 font-medium text-gray-900">
                     {page.name}
-                  </a>
+                  </Link>
                 </div>
               ))}
             </div>
 
-
             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
               <div className="flow-root">
-                <a href="Login" className="-m-2 block p-2 font-medium text-gray-900">
+                <Link to="/Login" className="-m-2 block p-2 font-medium text-gray-900">
                   Sign in
-                </a>
+                </Link>
               </div>
               <div className="flow-root">
-                   
-                <a href="Login" className="-m-2 block p-2 font-medium text-gray-900">
+                <Link to="/Login" className="-m-2 block p-2 font-medium text-gray-900">
                   Create account
-                </a>
+                </Link>
               </div>
             </div>
-            
 
             <div className="border-t border-gray-200 px-4 py-6">
               <a href="#" className="-m-2 flex items-center p-2">
