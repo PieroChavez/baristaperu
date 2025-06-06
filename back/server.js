@@ -1,19 +1,25 @@
-const connection = require('./DataBase/db');
 const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
+app.use(cors());
+app.use(express.json());
 
-app.get('/api', (req, res) => {
-  connection.query('SELECT NOW() as ahora', (err, results) => {
-    if (err) return res.status(500).send('Error en BD');
-    res.json({ fecha: results[0].ahora });
-  });
+// Conexión a la base de datos (solo para inicializar)
+require('./DataBase/db'); // Asegúrate de que la ruta sea correcta
+
+// Rutas
+app.use('/', require('./routes/auth'));
+app.use('/', require('./routes/profile'));
+
+// Ruta raíz
+app.get('/', (req, res) => {
+  res.send('Servidor funcionando con rutas separadas');
 });
 
-
-
-
-
-app.listen(3000, () => {
-  console.log('Servidor en http://localhost:3000');
+// Iniciar servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });

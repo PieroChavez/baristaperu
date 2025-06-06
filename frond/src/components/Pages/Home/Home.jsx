@@ -1,4 +1,4 @@
-import { Box, useMediaQuery, Typography, Avatar, IconButton, Stack, Link as MuiLink } from "@mui/material";
+import { Box, useMediaQuery, Typography, Avatar, IconButton, Stack, Link as MuiLink, Button } from "@mui/material";
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import EventIcon from '@mui/icons-material/Event';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
@@ -10,10 +10,11 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { useState, useEffect } from "react";
 import {Rol} from "../../../assets/RolUser/Rol";
 import Stories from "@/components/Layaouts/Stories";
-//import Team from "../../Components/Cards/Team";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+  const navigate = useNavigate();
 
   const nombreUsuario = localStorage.getItem("nombre") || "Nombre no disponible";
   const rolUsuario = localStorage.getItem("rol") || "Rol no disponible";
@@ -63,7 +64,7 @@ const Home = () => {
         >
           <Box
             p="1rem"
-            bgcolor="#f9fafb"
+            bgcolor="#f6f6f610"
             borderRadius="1rem"
             boxShadow="0 0 10px rgba(0,0,0,0.1)"
             display="flex"
@@ -72,11 +73,22 @@ const Home = () => {
             flexDirection={isNonMobileScreens ? "row" : "column"}
           >
             {/* Imagen a la izquierda */}
-            <Avatar
-              src={user.picturePath}
-              alt="Usuario"
-              sx={{ width: 100, height: 100 }}
-            />
+            <Box display="flex" flexDirection="column" alignItems="center">
+              <Avatar
+                src={user.picturePath}
+                alt="Usuario"
+                sx={{ width: 100, height: 100 }}
+              />
+              {/* Botón editar perfil SIEMPRE debajo del avatar */}
+              <Button
+                variant="outlined"
+                size="small"
+                sx={{ mt: 1, mb: 1, textTransform: "none" }}
+                onClick={() => navigate("/profile")}
+              >
+                Editar perfil
+              </Button>
+            </Box>
             {/* Info a la derecha */}
             <Box flex="1" width="100%">
               <Typography variant="h6" align={isNonMobileScreens ? "inherit" : "center"}>
@@ -139,7 +151,7 @@ const Home = () => {
         >
           <Box
             p="1rem"
-            bgcolor="#ffffff"
+            bgcolor="#f6f6f610"
             borderRadius="1rem"
             mb="1rem"
             boxShadow="0 0 10px rgba(0,0,0,0.1)"
@@ -202,7 +214,7 @@ const Home = () => {
             <Box
               key={post.id}
               p="1rem"
-              bgcolor="#f0f0f0"
+             bgcolor="#f6f6f610"
               borderRadius="1rem"
               mb="1rem"
               boxShadow="0 0 5px rgba(0,0,0,0.05)"
@@ -220,7 +232,7 @@ const Home = () => {
           <Box flexBasis="22%">
             <Box
               p="1rem"
-              bgcolor="#fff3cd"
+              bgcolor="#f6f6f610"
               borderRadius="1rem"
               boxShadow="0 0 10px rgba(0,0,0,0.1)"
               mb="2rem"
@@ -233,7 +245,7 @@ const Home = () => {
 
             <Box
               p="1rem"
-              bgcolor="#d1fae5"
+              bgcolor="#f6f6f610"
               borderRadius="1rem"
               boxShadow="0 0 10px rgba(0,0,0,0.1)"
             >

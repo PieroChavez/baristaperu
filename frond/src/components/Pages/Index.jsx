@@ -17,26 +17,25 @@ const Index = () => {
       setTimeout(() => {
         setRandomImages(getRandomImages(ImgPortada, 7))
         setFade(true)
-      }, 500) // Duración del fade-out
+      }, 500)
     }, 3000)
     return () => clearInterval(interval)
   }, [])
 
-  // Clase de transición para fade
   const fadeClass = fade
     ? 'transition-opacity duration-800 opacity-100'
     : 'transition-opacity duration-800 opacity-0'
 
   return (
     <>
-      <div className="relative overflow-hidden bg-white">
+      <div className="relative overflow-hidden dark:bg-gray-900 transition-colors duration-500">
         <div className="pt-20 pb-120 sm:pt-24 sm:pb-40 lg:pt-40 lg:pb-48">
           <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
             <div className="sm:max-w-lg">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+              <h1 className="text-4xl font-bold tracking-tight text-gray-300 dark:text-white sm:text-6xl">
                 Súmate y deja que la pasión hable por ti
               </h1>
-              <p className="mt-4 text-xl text-gray-500">
+              <p className="mt-4 text-xl text-gray-500 dark:text-gray-00">
                 La caficultura en el Perú crece, y necesita de tu ayuda. Súmate.
               </p>
             </div>
@@ -108,7 +107,7 @@ const Index = () => {
                 </div>
                 <NavLink
                   to="/Login"
-                  className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700"
+                  className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 transition-colors duration-300"
                 >
                   Iniciar
                 </NavLink>

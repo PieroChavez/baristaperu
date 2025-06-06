@@ -1,3 +1,8 @@
+import { IconButton, Tooltip, Button } from "@mui/material";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { useThemeContext } from "../../ThemeContext";
+import { Brightness4, Brightness7 } from "@mui/icons-material";
 
 import { Fragment, useState } from 'react'
 import {
@@ -14,6 +19,7 @@ import {
   TabPanel,
   TabPanels,
 } from '@headlessui/react'
+import { useNavigate } from 'react-router-dom';
 
 import { Banderas } from '@/assets/Banderas/Banderas';
 
@@ -27,55 +33,54 @@ const navigation = {
       name: 'Productores',
       featured: [
         {
-          name: 'Cafeterias',
-          href: '/Cafeterias',
+          name: 'Amazonas',
+          href: '/region/amazonas',
           imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/mega-menu-category-01.jpg',
-          imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
+          imageAlt: 'Amazonas, región cafetalera del Perú.',
         },
         {
-          name: 'Ferias',
-          href: '/Ferias',
+          name: 'Cajamarca',
+          href: '/region/cajamarca',
           imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/mega-menu-category-02.jpg',
-          imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
+          imageAlt: 'Cajamarca, región cafetalera del Perú.',
         },
+        
+       
+        
+        
+        // Agrega más regiones si lo deseas
       ],
       sections: [
         {
-          id: 'Cafeterias',
-          name: 'Cafeterias',
+          id: 'Regiones',
+          name: 'Regiones del Perú',
           items: [
-            { name: 'Tops', href: '/tops' },
-            { name: 'Dresses', href: '/dresses' },
-            { name: 'Pants', href: '/pants' },
-            { name: 'Denim', href: '/denim' },
-            { name: 'Sweaters', href: '/sweaters' },
-            { name: 'T-Shirts', href: '/t-shirts' },
-            { name: 'Jackets', href: '/jackets' },
-            { name: 'Activewear', href: '/activewear' },
-            { name: 'Browse All', href: '/browse-all' },
+            { name: 'Amazonas', href: '/region/amazonas' },
+            { name: 'Cajamarca', href: '/region/cajamarca' },
+            { name: 'San Martín', href: '/region/sanmartin' },
+            { name: 'Junín', href: '/region/junin' },
+            { name: 'Cusco', href: '/region/cusco' },
+            { name: 'Puno', href: '/region/puno' },
+            // Agrega más regiones aquí
           ],
         },
         {
           id: 'accessories baristas',
-          name: 'Accessories',
+          name: 'Accesorios',
           items: [
-            { name: 'Watches', href: '/watches' },
-            { name: 'Wallets', href: '/wallets' },
-            { name: 'Bags', href: '/bags' },
-            { name: 'Sunglasses', href: '/sunglasses' },
-            { name: 'Hats', href: '/hats' },
-            { name: 'Belts', href: '/belts' },
+            { name: 'Filtros', href: '/filtros' },
+            { name: 'Prensas', href: '/prensas' },
+            { name: 'Molinillos', href: '/molinillos' },
+            { name: 'Tazas', href: '/tazas' },
+            { name: 'Otros', href: '/otros-accesorios' },
           ],
         },
         {
           id: 'Abonos ',
           name: 'Abonos',
           items: [
-            { name: 'Full Nelson', href: '/full-nelson' },
-            { name: 'My Way', href: '/my-way' },
-            { name: 'Re-Arranged', href: '/re-arranged' },
-            { name: 'Counterfeit', href: '/counterfeit' },
-            { name: 'Significant Other', href: '/significant-other' },
+            { name: 'Orgánicos', href: '/abonos-organicos' },
+            { name: 'Convencionales', href: '/abonos-convencionales' },
           ],
         },
       ],
@@ -85,73 +90,84 @@ const navigation = {
       name: 'Baristas',
       featured: [
         {
-          name: 'Trabajos',
-          href: '/Trabajos',
+          name: 'Cafés del Norte',
+          href: '/cafes/norte',
           imageSrc:
             'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-          imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+          imageAlt: 'Cafés del Norte del Perú.',
         },
         {
-          name: 'Eventos',
-          href: '/Eventos',
+          name: 'Cafés del Centro',
+          href: '/cafes/centro',
           imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-02-image-card-06.jpg',
-          imageAlt:
-            'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+          imageAlt: 'Cafés del Centro del Perú.',
         },
+        
+        
       ],
       sections: [
         {
           id: 'Tienda',
           name: 'Tienda',
           items: [
-            { name: 'Tops', href: '/men-tops' },
-            { name: 'Pants', href: '/men-pants' },
-            { name: 'Sweaters', href: '/men-sweaters' },
-            { name: 'T-Shirts', href: '/men-t-shirts' },
-            { name: 'Jackets', href: '/men-jackets' },
-            { name: 'Activewear', href: '/men-activewear' },
-            { name: 'Browse All', href: '/men-browse-all' },
+            { name: 'Cafés del Norte', href: '/cafes/norte' },
+            { name: 'Cafés del Centro', href: '/cafes/centro' },
+            { name: 'Cafés del Sur', href: '/cafes/sur' },
           ],
         },
         {
           id: 'accessories',
-          name: 'Accessories',
+          name: 'Accesorios',
           items: [
-            { name: 'Watches', href: '/men-watches' },
-            { name: 'Wallets', href: '/men-wallets' },
-            { name: 'Bags', href: '/men-bags' },
-            { name: 'Sunglasses', href: '/men-sunglasses' },
-            { name: 'Hats', href: '/men-hats' },
-            { name: 'Belts', href: '/men-belts' },
+            { name: 'Filtros', href: '/filtros' },
+            { name: 'Prensas', href: '/prensas' },
+            { name: 'Molinillos', href: '/molinillos' },
+            { name: 'Tazas', href: '/tazas' },
+            { name: 'Otros', href: '/otros-accesorios' },
           ],
         },
         {
           id: 'Cafes especiales',
-          name: 'Cafes especiales',
+          name: 'Cafés Especiales',
           items: [
-            { name: 'Re-Arranged', href: '/men-re-arranged' },
-            { name: 'Counterfeit', href: '/men-counterfeit' },
-            { name: 'Full Nelson', href: '/men-full-nelson' },
-            { name: 'My Way', href: '/men-my-way' },
+            { name: 'Cafés del Norte', href: '/cafes/norte' },
+            { name: 'Cafés del Centro', href: '/cafes/centro' },
+            { name: 'Cafés del Sur', href: '/cafes/sur' },
           ],
         },
       ],
     },
   ],
   pages: [
-    { name: 'Company', href: '/company' },
-    { name: 'Stores', href: '/stores' },
+    { name: 'Nosotros', href: '/company' },
+    { name: 'Tiendas', href: '/stores' },
   ],
 }
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const navigate = useNavigate();
+  const { themeMode, toggleTheme } = useThemeContext();
+
+  // Simula si el usuario está registrado (reemplaza esto con tu lógica real)
+  const isRegistered = false;
+
+  // Función para manejar el click en links protegidos
+  const handleProtectedClick = (e, href) => {
+    if (!isRegistered) {
+      e.preventDefault();
+      setShowAlert(true);
+    } else {
+      navigate(href);
+    }
+  };
 
   return (
     <div>
       {/* Navbar fija */}
       <header
-        className="fixed top-0 left-0 w-full z-50 bg-white shadow"
+        className="fixed top-0 left-0 w-full z-50 bg-white  dark:bg-gray-800 shadow"
         style={{ minHeight: 64 }}
       >
         <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -169,9 +185,8 @@ export default function Navbar() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <NavLink to="/">
-                  <span className="sr-only">BARISTAS</span>
-                  <h1>BARISTAS</h1>
+                <NavLink to="/" aria-label="Inicio BARISTAS">
+                   <h1 className="text-lg font-bold">BARISTAS</h1>
                 </NavLink>
               </div>
                
@@ -228,7 +243,11 @@ export default function Navbar() {
                                     >
                                       {section.items.map((item) => (
                                         <li key={item.name} className="flex">
-                                          <NavLink to={item.href} className="hover:text-gray-800">
+                                          <NavLink
+                                            to={item.href}
+                                            className="hover:text-gray-800"
+                                            onClick={e => handleProtectedClick(e, item.href)}
+                                          >
                                             {item.name}
                                           </NavLink>
                                         </li>
@@ -249,6 +268,7 @@ export default function Navbar() {
                       key={page.name}
                       to={page.href}
                       className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                      onClick={e => handleProtectedClick(e, page.href)}
                     >
                       {page.name}
                     </NavLink>
@@ -299,6 +319,13 @@ export default function Navbar() {
                     <span className="sr-only">items in cart, view bag</span>
                   </a>
                 </div>
+
+                {/* Botón de modo claro/oscuro */}
+                <IconButton onClick={toggleTheme} color="inherit">
+                  <Tooltip title={themeMode === "light" ? "Modo oscuro" : "Modo claro"}>
+                    {themeMode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+                  </Tooltip>
+                </IconButton>
               </div>
             </div>
           </div>
@@ -427,6 +454,31 @@ export default function Navbar() {
           </DialogPanel>
         </div>
       </Dialog>
+
+      {/* ALERTA DE REGISTRO */}
+      {showAlert && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-lg shadow-lg p-6 max-w-xs w-full text-center">
+            <h2 className="text-lg font-semibold mb-2">¡Debes registrarte!</h2>
+            <p className="mb-4">Para acceder a esta sección necesitas iniciar sesión o crear una cuenta.</p>
+            <button
+              className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+              onClick={() => {
+                setShowAlert(false);
+                navigate('/Login');
+              }}
+            >
+              Ir a Login
+            </button>
+            <button
+              className="ml-2 text-gray-500 hover:underline"
+              onClick={() => setShowAlert(false)}
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -176,7 +176,7 @@ function RegisterForm({ onBack }) {
     e.preventDefault();
     // Aquí puedes hacer la petición al backend para registrar el usuario
     try {
-      const response = await fetch('http://localhost:3001/api/register', {
+      const response = await fetch('http://localhost:3306/api/register', {  
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -194,7 +194,7 @@ function RegisterForm({ onBack }) {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 400, mx: 'auto', p: 2 }}>
+    <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 400, mx: 'auto', p: 9 }}>
       <Typography variant="h5" mb={2}>Registro</Typography>
       <TextField
         label="Nombre"
@@ -299,7 +299,7 @@ export default function AuthPage() {
             const email = formData.get('email');
             const password = formData.get('password');
             try {
-              const response = await fetch('http://localhost:3001/api/login', {
+              const response = await fetch('http://localhost:3000/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
@@ -307,10 +307,11 @@ export default function AuthPage() {
               const data = await response.json();
               if (response.ok) {
                 alert('✅ Login exitoso');
-                localStorage.setItem('user', JSON.stringify(data.user));
-                // window.location.href = '/dashboard';
+                localStorage.setItem('token', data.token); // Guarda el token
+                localStorage.setItem('user', JSON.stringify(data.usuario)); // Guarda datos del usuario si quieres
+                window.location.href = '/home'; // Redirige a Home.jsx (asegúrate de tener la ruta configurada)
               } else {
-                alert(`❌ ${data.message}`);
+                alert(`❌ ${data.mensaje || data.message}`);
               }
             } catch (error) {
               console.error('Error al iniciar sesión:', error);
