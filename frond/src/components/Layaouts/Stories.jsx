@@ -1,28 +1,6 @@
 import React, { useState, useEffect } from "react";
-
-const mockUsers = [
-  {
-    id: 1,
-    name: "Alison",
-    avatar: "/assets/alison.jpg",
-    story: "/assets/story1.jpg", // imagen o video
-    type: "image",
-  },
-  {
-    id: 2,
-    name: "Ray",
-    avatar: "/assets/ray.jpg",
-    story: "/assets/story2.mp4",
-    type: "video",
-  },
-  {
-    id: 3,
-    name: "Piero",
-    avatar: "/assets/piero.jpg",
-    story: "/assets/story3.jpg",
-    type: "image",
-  },
-];
+import { stories } from "@/assets/Stories/Stories";
+import { avatarstorie } from "@/assets/Avatar/Avatar/AvatarStories";
 
 const Stories = () => {
   const [activeStory, setActiveStory] = useState(null);
@@ -30,11 +8,23 @@ const Stories = () => {
   useEffect(() => {
     if (activeStory !== null) {
       const timer = setTimeout(() => {
-        setActiveStory(null); // Volver al listado después de 3s
+        setActiveStory(null);
       }, 3000);
       return () => clearTimeout(timer);
     }
   }, [activeStory]);
+
+  // Combinamos historias con avatars por ID
+  const combinedData = stories.map((story) => {
+    const avatar = avatarstorie.find((a) => a.id === story.id);
+    const extension = story.story.split('.').pop().toLowerCase();
+    const type = extension === "mp4" ? "video" : "image";
+    return {
+      ...story,
+      avatar: avatar?.avatar || "",
+      type,
+    };
+  });
 
   return (
     <div style={{ padding: "1rem" }}>
@@ -44,18 +34,15 @@ const Stories = () => {
             display: "flex",
             gap: "1rem",
             overflowX: "auto",
-            justifyContent: "center", // Centra las stories
+            justifyContent: "center",
             alignItems: "center",
             width: "100%",
           }}
         >
-          {mockUsers.map((user) => (
+          {combinedData.map((user) => (
             <div
               key={user.id}
-              style={{
-                textAlign: "center",
-                cursor: "pointer",
-              }}
+              style={{ textAlign: "center", cursor: "pointer" }}
               onClick={() => setActiveStory(user)}
             >
               <img

@@ -1,19 +1,8 @@
+// src/components/Pages/Auth/Login.jsx
 import * as React from 'react';
 import {
-  Button,
-  FormControl,
-  Checkbox,
-  FormControlLabel,
-  InputLabel,
-  OutlinedInput,
-  TextField,
-  InputAdornment,
-  Link,
-  Alert,
-  IconButton,
-  MenuItem,
-  Box,
-  Typography,
+  Button, FormControl, Checkbox, FormControlLabel, InputLabel, OutlinedInput,
+  TextField, InputAdornment, Link, Alert, IconButton, Box
 } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Visibility from '@mui/icons-material/Visibility';
@@ -21,16 +10,18 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { SignInPage } from '@toolpad/core/SignInPage';
 import { useTheme } from '@mui/material/styles';
+import RegisterForm from './Register';
+import { useDispatch } from 'react-redux';
+import { setLogin } from '../../../components/Scenes/Status/userSlice';
+import { useNavigate } from 'react-router-dom';
 
-const providers = [{ id: 'credentials', name: 'Email and Password' }];
+const providers = [{ id: 'credentials', name: 'Correo y contraseña' }];
 
-// -------------------- LOGIN COMPONENTES --------------------
 function CustomEmailField() {
   return (
     <TextField
-      id="input-with-icon-textfield"
-      label="Email"
-      name="email"
+      label="Correo"
+      name="correo"
       type="email"
       size="small"
       required
@@ -49,41 +40,23 @@ function CustomEmailField() {
 
 function CustomPasswordField() {
   const [showPassword, setShowPassword] = React.useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  const togglePassword = () => setShowPassword((show) => !show);
 
   return (
     <FormControl sx={{ my: 2 }} fullWidth variant="outlined">
-      <InputLabel size="small" htmlFor="outlined-adornment-password">
-        Password
-      </InputLabel>
+      <InputLabel size="small">Contraseña</InputLabel>
       <OutlinedInput
-        id="outlined-adornment-password"
         type={showPassword ? 'text' : 'password'}
         name="password"
         size="small"
         endAdornment={
           <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-              edge="end"
-              size="small"
-            >
-              {showPassword ? (
-                <VisibilityOff fontSize="inherit" />
-              ) : (
-                <Visibility fontSize="inherit" />
-              )}
+            <IconButton onClick={togglePassword} edge="end" size="small">
+              {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>
         }
-        label="Password"
+        label="Contraseña"
       />
     </FormControl>
   );
@@ -91,247 +64,120 @@ function CustomPasswordField() {
 
 function CustomButton() {
   return (
-    <Button
-      type="submit"
-      variant="outlined"
-      color="info"
-      size="small"
-      disableElevation
-      fullWidth
-      sx={{ my: 2 }}
-    >
-      Log In
+    <Button type="submit" variant="contained" color="primary" size="small" fullWidth sx={{ my: 2 }}>
+      Iniciar sesión
     </Button>
   );
 }
 
-function SignUpLink({ onClick }) {
+function RememberMeCheckbox() {
   return (
-    <Link component="button" variant="body2" onClick={onClick}>
-      ¿No tienes cuenta? Regístrate
-    </Link>
+    <FormControlLabel
+      label="Recuérdame"
+      control={<Checkbox name="remember" value="true" color="primary" />}
+    />
   );
 }
 
 function ForgotPasswordLink() {
   return (
-    <Link href="/" variant="body2">
-      Forgot password?
+    <Link href="#" variant="body2">
+      ¿Olvidaste tu contraseña?
     </Link>
   );
 }
 
 function Title() {
-  return <h2 style={{ marginBottom: 8 }}>Login</h2>;
+  return <h2 style={{ marginBottom: 8 }}>Iniciar sesión</h2>;
 }
 
 function Subtitle() {
   return (
-    <Alert sx={{ mb: 2, px: 1, py: 0.25, width: '100%' }} severity="info">
+    <Alert sx={{ mb: 2 }} severity="info">
       Ingresa tus credenciales para acceder.
     </Alert>
   );
 }
 
-function RememberMeCheckbox() {
-  const theme = useTheme();
-  return (
-    <FormControlLabel
-      label="Remember me"
-      control={
-        <Checkbox
-          name="remember"
-          value="true"
-          color="primary"
-          sx={{ padding: 0.5, '& .MuiSvgIcon-root': { fontSize: 20 } }}
-        />
-      }
-      slotProps={{
-        typography: {
-          color: 'textSecondary',
-          fontSize: theme.typography.pxToRem(14),
-        },
-      }}
-    />
-  );
-}
-
-// -------------------- REGISTRO COMPONENTE --------------------
-function RegisterForm({ onBack }) {
-  const [form, setForm] = React.useState({
-    nombre: '',
-    celular: '',
-    rol: '',
-    correo: '',
-    sexo: '',
-    password: '',
-  });
-  const [showPassword, setShowPassword] = React.useState(false);
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Aquí puedes hacer la petición al backend para registrar el usuario
-    try {
-      const response = await fetch('http://localhost:3306/api/register', {  
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        alert('✅ Registro exitoso');
-        if (onBack) onBack(); // Vuelve al login
-      } else {
-        alert(`❌ ${data.message}`);
-      }
-    } catch (error) {
-      alert('❌ Error de conexión con el servidor');
-    }
-  };
-
-  return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 400, mx: 'auto', p: 9 }}>
-      <Typography variant="h5" mb={2}>Registro</Typography>
-      <TextField
-        label="Nombre"
-        name="nombre"
-        value={form.nombre}
-        onChange={handleChange}
-        required
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Celular"
-        name="celular"
-        value={form.celular}
-        onChange={handleChange}
-        required
-        fullWidth
-        margin="normal"
-        inputProps={{ maxLength: 15 }}
-      />
-      <TextField
-        select
-        label="Rol"
-        name="rol"
-        value={form.rol}
-        onChange={handleChange}
-        required
-        fullWidth
-        margin="normal"
-      >
-        <MenuItem value="barista">Barista</MenuItem>
-        <MenuItem value="catador">Catador</MenuItem>
-        <MenuItem value="tostador">Tostador</MenuItem>
-      </TextField>
-      <TextField
-        label="Correo"
-        name="correo"
-        type="email"
-        value={form.correo}
-        onChange={handleChange}
-        required
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        select
-        label="Sexo"
-        name="sexo"
-        value={form.sexo}
-        onChange={handleChange}
-        required
-        fullWidth
-        margin="normal"
-      >
-        <MenuItem value="masculino">Masculino</MenuItem>
-        <MenuItem value="femenino">Femenino</MenuItem>
-      </TextField>
-      <FormControl fullWidth margin="normal" required variant="outlined">
-        <InputLabel>Contraseña</InputLabel>
-        <OutlinedInput
-          label="Contraseña"
-          name="password"
-          type={showPassword ? 'text' : 'password'}
-          value={form.password}
-          onChange={handleChange}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={() => setShowPassword((show) => !show)}
-                edge="end"
-                size="small"
-              >
-                {showPassword ? <VisibilityOff fontSize="inherit" /> : <Visibility fontSize="inherit" />}
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl>
-      <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
-        Registrarse
-      </Button>
-      <Button onClick={onBack} color="secondary" fullWidth sx={{ mt: 1 }}>
-        Volver al Login
-      </Button>
-    </Box>
-  );
-}
-
-// -------------------- COMPONENTE PRINCIPAL --------------------
-export default function AuthPage() {
+export default function Login() {
   const theme = useTheme();
   const [showRegister, setShowRegister] = React.useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSuccessfulLogin = (data) => {
+    // Guarda usuario en Redux
+    dispatch(setLogin(data.usuario));
+
+    // Guarda token y usuario en localStorage
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.usuario));
+
+    console.log('✅ Usuario logueado:', data.usuario);
+    window.location.href = '/#/home';
+  };
+
+  if (showRegister) {
+    return (
+      <RegisterForm
+        onBack={() => setShowRegister(false)}
+        onRegisterSuccess={handleSuccessfulLogin}
+      />
+    );
+  }
 
   return (
     <AppProvider theme={theme}>
-      {showRegister ? (
-        <RegisterForm onBack={() => setShowRegister(false)} />
-      ) : (
-        <SignInPage
-          signIn={async (provider, formData) => {
-            const email = formData.get('email');
-            const password = formData.get('password');
-            try {
-              const response = await fetch('http://localhost:3000/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password }),
-              });
-              const data = await response.json();
-              if (response.ok) {
-                alert('✅ Login exitoso');
-                localStorage.setItem('token', data.token); // Guarda el token
-                localStorage.setItem('user', JSON.stringify(data.usuario)); // Guarda datos del usuario si quieres
-                window.location.href = '/home'; // Redirige a Home.jsx (asegúrate de tener la ruta configurada)
-              } else {
-                alert(`❌ ${data.mensaje || data.message}`);
-              }
-            } catch (error) {
-              console.error('Error al iniciar sesión:', error);
-              alert('❌ Error de conexión con el servidor');
+      <SignInPage
+        signIn={async (_, formData) => {
+          const correo = formData.get('correo');
+          const password = formData.get('password');
+
+          if (!correo || !password) {
+            alert('❌ Debes completar ambos campos');
+            return;
+          }
+
+          try {
+            const response = await fetch('http://localhost:3000/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ correo, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              handleSuccessfulLogin(data);
+            } else {
+              alert(`❌ ${data.mensaje || data.message}`);
             }
-          }}
-          slots={{
-            title: Title,
-            subtitle: Subtitle,
-            emailField: CustomEmailField,
-            passwordField: CustomPasswordField,
-            submitButton: CustomButton,
-            signUpLink: () => <SignUpLink onClick={() => setShowRegister(true)} />,
-            rememberMe: RememberMeCheckbox,
-            forgotPasswordLink: ForgotPasswordLink,
-          }}
-          slotProps={{ form: { noValidate: true } }}
-          providers={providers}
-        />
-      )}
+          } catch {
+            alert('❌ Error de conexión con el servidor');
+          }
+        }}
+        slots={{
+          title: Title,
+          subtitle: Subtitle,
+          emailField: CustomEmailField,
+          passwordField: CustomPasswordField,
+          submitButton: CustomButton,
+          rememberMe: RememberMeCheckbox,
+          forgotPasswordLink: ForgotPasswordLink,
+          signUpLink: () => (
+            <Link
+              component="button"
+              type="button" // <-- Esto evita el submit
+              variant="body2"
+              onClick={() => navigate('/register')}
+            >
+              ¿No tienes cuenta? Regístrate
+            </Link>
+          ),
+        }}
+        providers={providers}
+        slotProps={{ form: { noValidate: true } }}
+      />
     </AppProvider>
   );
 }

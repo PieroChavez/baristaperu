@@ -10,6 +10,7 @@ import Index from './components/Pages/Index';
 import Profile from './components/Pages/Home/Profile';
 import Navbar from './components/Layaouts/Navbar';
 import Footer from './components/Layaouts/Footer';
+import Register from './components/Pages/Auth/Register';
 
 // Componente de ruta privada
 function PrivateRoute({ children }) {
@@ -26,9 +27,24 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
-          {/* Rutas protegidas (temporalmente libres para pruebas) */}
-          <Route path="/home" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path='/register' element={<Register/>} />
+          {/* Rutas protegidas */}
+          <Route
+            path="/home"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
         </Routes>
         <Footer />
       </HashRouter>

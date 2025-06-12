@@ -1,6 +1,8 @@
+// middleware/auth.js
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-function verificarToken(req, res, next) {
+const verificarToken = (req, res, next) => {
   const token = req.headers['authorization'];
   if (!token) return res.status(403).json({ mensaje: 'Token requerido' });
 
@@ -9,6 +11,6 @@ function verificarToken(req, res, next) {
     req.usuario = decoded;
     next();
   });
-}
+};
 
 module.exports = verificarToken;

@@ -3,6 +3,11 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useThemeContext } from "../../ThemeContext";
 import { Brightness4, Brightness7 } from "@mui/icons-material";
+import LogoutIcon from '@mui/icons-material/Logout';
+
+
+import {ImgPortada} from "@/assets/ImgPortada/ImgPortada";
+import { avatarstorie } from "@/assets/Avatar/Avatar/AvatarStories";
 
 import { Fragment, useState } from 'react'
 import {
@@ -35,13 +40,13 @@ const navigation = {
         {
           name: 'Amazonas',
           href: '/region/amazonas',
-          imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/mega-menu-category-01.jpg',
+          imageSrc: avatarstorie[1].avatar,
           imageAlt: 'Amazonas, región cafetalera del Perú.',
         },
         {
           name: 'Cajamarca',
           href: '/region/cajamarca',
-          imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/mega-menu-category-02.jpg',
+          imageSrc: ImgPortada[6].image,
           imageAlt: 'Cajamarca, región cafetalera del Perú.',
         },
         
@@ -92,14 +97,13 @@ const navigation = {
         {
           name: 'Cafés del Norte',
           href: '/cafes/norte',
-          imageSrc:
-            'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+          imageSrc: avatarstorie[2].avatar,
           imageAlt: 'Cafés del Norte del Perú.',
         },
         {
           name: 'Cafés del Centro',
           href: '/cafes/centro',
-          imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-02-image-card-06.jpg',
+          imageSrc: avatarstorie[0].avatar,
           imageAlt: 'Cafés del Centro del Perú.',
         },
         
@@ -163,11 +167,13 @@ export default function Navbar() {
     }
   };
 
+  const isLoggedIn = !!localStorage.getItem('token'); // O usa tu lógica de autenticación
+
   return (
     <div>
       {/* Navbar fija */}
       <header
-        className="fixed top-0 left-0 w-full z-50 bg-white  dark:bg-gray-800 shadow"
+        className="fixed top-0 left-0 w-full z-50 bg-white bg-[#000000] dark:bg-gray-800 shadow"
         style={{ minHeight: 64 }}
       >
         <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -185,8 +191,8 @@ export default function Navbar() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <NavLink to="/" aria-label="Inicio BARISTAS">
-                   <h1 className="text-lg font-bold">BARISTAS</h1>
+                <NavLink to={isLoggedIn ? "/home" : "/"} aria-label="Inicio BARISTAS">
+                  <h1 className="text-lg font-bold">BARISTAS</h1>
                 </NavLink>
               </div>
                
@@ -277,15 +283,32 @@ export default function Navbar() {
               </PopoverGroup>
 
               <div className="ml-auto flex items-center">
-                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <NavLink to="/Home" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                    Iniciar
-                  </NavLink>
-                  <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
-                  <NavLink to="/Login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                    Create account
-                  </NavLink>
-                </div>
+                {!isLoggedIn ? (
+                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                    <NavLink to="/Login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                      Iniciar
+                    </NavLink>
+                    <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
+                    <NavLink to="/Register" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                      Create account
+                    </NavLink>
+                  </div>
+                ) : (
+                  <Button
+                    color="error"
+                    variant="outlined"
+                    startIcon={<LogoutIcon />}
+                    onClick={() => {
+                      localStorage.removeItem('token');
+                      // Si guardas más info de usuario, bórrala también
+                      // localStorage.removeItem('user');
+                      navigate('/');
+                    }}
+                    sx={{ ml: 2 }}
+                  >
+                    Salir
+                  </Button>
+                )}
 
                 <div className="hidden lg:ml-8 lg:flex">
                   {/* Este sigue siendo un <a> porque no es una ruta interna */}
@@ -296,14 +319,16 @@ export default function Navbar() {
                       className="block h-auto w-5 shrink-0"
                     />
                     <span className="ml-3 block text-sm font-medium">PEN</span>
-                    <span className="sr-only">, change currency</span>
+                    
                   </a>
                 </div>
 
                 {/* Search */}
                 <div className="flex lg:ml-6">
+                  <Tooltip title="buscar"></Tooltip>
                   <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
                     <span className="sr-only">Search</span>
+                    
                     <MagnifyingGlassIcon aria-hidden="true" className="size-6" />
                   </a>
                 </div>
