@@ -239,7 +239,7 @@ export default function Navbar() {
                                       {item.name}
                                     </NavLink>
                                     <p aria-hidden="true" className="mt-1">
-                                      Shop now
+                                      ver ahora
                                     </p>
                                   </div>
                                 ))}
@@ -452,28 +452,23 @@ export default function Navbar() {
 
             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
               <div className="flow-root">
-                <NavLink to="/Home" className="-m-2 block p-2 font-medium text-gray-900">
-                  iniciar
-                </NavLink>
+                <div className="flow-root">
+                  <LoginButton />
+                </div>
               </div>
-              <div className="flow-root">
-                <NavLink to="/Login" className="-m-2 block p-2 font-medium text-gray-900">
-                  Create account
-                </NavLink>
-              </div>
+              
             </div>
 
             <div className="border-t border-gray-200 px-4 py-6">
               {/* Este sigue siendo un <a> porque no es una ruta interna */}
-              <a href="#" className="-m-2 flex items-center p-2">
+              
                 <img
                   alt="Peru"
                   src={Banderas[0].Imagen}
                   className="block h-auto w-5 shrink-0"
                 />
-                <span className="ml-3 block text-base font-medium text-gray-900">CAD</span>
-                <span className="sr-only">, change currency</span>
-              </a>
+                <span className="ml-3 text-base font-medium text-gray-900">Perú</span>
+              
             </div>
           </DialogPanel>
         </div>
@@ -487,12 +482,8 @@ export default function Navbar() {
             <p className="mb-4">Para acceder a esta sección necesitas iniciar sesión o crear una cuenta.</p>
             <button
               className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
-              onClick={() => {
-                setShowAlert(false);
-                navigate('/Login');
-              }}
-            >
-              Ir a Login
+              >
+              <LoginButton />
             </button>
             <button
               className="ml-2 text-gray-500 hover:underline"

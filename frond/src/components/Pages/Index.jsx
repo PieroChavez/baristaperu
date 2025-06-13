@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ImgPortada } from '@/assets/ImgPortada/ImgPortada'
-import { NavLink } from 'react-router-dom'
+import LoginButton from '@/components/Pages/Auth/LoginButton'
 
 function getRandomImages(arr, count) {
   const shuffled = [...arr].sort(() => 0.5 - Math.random())
@@ -105,12 +105,12 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-                <NavLink
-                  to="/Login"
-                  className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 transition-colors duration-300"
-                >
-                  Iniciar
-                </NavLink>
+                
+                  
+                  <div className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 transition-colors duration-300">
+                    <LoginButton />
+                  </div>
+                
               </div>
             </div>
           </div>
