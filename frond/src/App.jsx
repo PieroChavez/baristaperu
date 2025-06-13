@@ -47,11 +47,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           {/* Rutas protegidas con Auth0 */}
-          {/* <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} /> */}
-          {/* <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} /> */}
-          {/* Rutas públicas para pruebas */}
-          <Route path="/home" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
+          <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
         </Routes>
         <Footer />
       </HashRouter>
