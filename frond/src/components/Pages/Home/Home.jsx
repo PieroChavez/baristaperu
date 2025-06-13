@@ -1,38 +1,22 @@
-import { Box, useMediaQuery, Typography, Avatar, IconButton, Stack, Link as MuiLink, Button } from "@mui/material";
-
-
+import { Box, useMediaQuery, Typography } from "@mui/material";
 import UserWidget from "@/components/Scenes/Widgets/UserWidget";
-
-import {Rol} from "../../../assets/RolUser/Rol";
 import Stories from "@/components/Layaouts/Stories";
 import { useNavigate } from "react-router-dom";
 import FriendListWidget from "@/components/Scenes/Widgets/FriendListWidget";
 import AdvertWidget from "@/components/Scenes/Widgets/AdvertWidget";
 import MyPostWidget from "@/components/Scenes/Widgets/MyPostWidget";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const navigate = useNavigate();
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
-  const nombreUsuario = localStorage.getItem("nombre") || "Nombre no disponible";
-  const rolUsuario = localStorage.getItem("rol") || "Rol no disponible";
-  const sexoUsuario = localStorage.getItem("sexo") || "";
-  const imagenUsuario = localStorage.getItem("imagen") || "";
+  // Puedes mostrar un loader si lo deseas
+  if (isLoading) return <div>Cargando...</div>;
+  if (!isAuthenticated) return null;
 
-  const getImagenPorSexo = () => {
-    if (imagenUsuario) return imagenUsuario;
-    if (sexoUsuario.toLowerCase() === "femenino") return Rol[0].image;
-    if (sexoUsuario.toLowerCase() === "masculino") return Rol[1].image;
-    return Rol[2].image;
-  };
-
-  const user = {
-    _id: "abc123",
-    picturePath: getImagenPorSexo(),
-    name: nombreUsuario,
-    rol: rolUsuario,
-  };
-
+  // Ejemplo de posts (puedes traerlos de tu backend si lo deseas)
   const posts = [
     {
       id: 1,
@@ -61,7 +45,6 @@ const Home = () => {
           mb={isNonMobileScreens ? 0 : 2}
         >
           <UserWidget />
-
         </Box>
 
         {/* Columna central */}
@@ -69,14 +52,14 @@ const Home = () => {
           flexBasis={isNonMobileScreens ? "56%" : "100%"}
           mt={isNonMobileScreens ? undefined : 2}
         >
-          <MyPostWidget/>
+          <MyPostWidget />
           <Stories />
 
           {posts.map((post) => (
             <Box
               key={post.id}
               p="1rem"
-             bgcolor="#f6f6f610"
+              bgcolor="#f6f6f610"
               borderRadius="1rem"
               mb="1rem"
               boxShadow="0 0 5px rgba(0,0,0,0.05)"
@@ -92,9 +75,8 @@ const Home = () => {
         {/* Columna derecha */}
         {isNonMobileScreens && (
           <Box flexBasis="22%">
-           <AdvertWidget/>
-
-           <FriendListWidget/>
+            <AdvertWidget />
+            <FriendListWidget />
           </Box>
         )}
       </Box>

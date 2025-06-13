@@ -2,9 +2,13 @@ import { IconButton, Tooltip, Button } from "@mui/material";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useThemeContext } from "../../ThemeContext";
-import { Brightness4, Brightness7 } from "@mui/icons-material";
-import LogoutIcon from '@mui/icons-material/Logout';
+import { Banderas } from "@/assets/Banderas/Banderas";
 
+
+import LoginButton from "../Pages/Auth/LoginButton";
+import LogoutButton from "../Pages/Auth/LogoutButton";
+import { useAuth0 } from '@auth0/auth0-react';
+import Avatar from '@mui/material/Avatar'; // Asegúrate de importar Avatar
 
 import {ImgPortada} from "@/assets/ImgPortada/ImgPortada";
 import { avatarstorie } from "@/assets/Avatar/Avatar/AvatarStories";
@@ -26,7 +30,7 @@ import {
 } from '@headlessui/react'
 import { useNavigate } from 'react-router-dom';
 
-import { Banderas } from '@/assets/Banderas/Banderas';
+
 
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { NavLink, Link } from 'react-router-dom';
@@ -154,6 +158,11 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { themeMode, toggleTheme } = useThemeContext();
 
+
+
+   const { isAuthenticated, user } = useAuth0();
+  const isLoggedIn = isAuthenticated;
+
   // Simula si el usuario está registrado (reemplaza esto con tu lógica real)
   const isRegistered = false;
 
@@ -167,7 +176,6 @@ export default function Navbar() {
     }
   };
 
-  const isLoggedIn = !!localStorage.getItem('token'); // O usa tu lógica de autenticación
 
   return (
     <div>
@@ -283,44 +291,35 @@ export default function Navbar() {
               </PopoverGroup>
 
               <div className="ml-auto flex items-center">
-                {!isLoggedIn ? (
-                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                    <NavLink to="/Login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                      Iniciar
-                    </NavLink>
-                    <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
-                    <NavLink to="/Register" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                      Create account
-                    </NavLink>
+                {isLoggedIn ? (
+                  <div className="ml-auto flex items-center space-x-4">
+                    {/* Avatar */}
+                    <div className="flex flex-col items-center">
+                      <Avatar
+                        src={user?.picture}
+                        alt={user?.name}
+                        sx={{ width: 32, height: 32 }}
+                      />
+                      <span className="text-xs text-gray-400 mt-1">{user?.name}</span>
+                    </div>
+                    <LogoutButton />
                   </div>
                 ) : (
-                  <Button
-                    color="error"
-                    variant="outlined"
-                    startIcon={<LogoutIcon />}
-                    onClick={() => {
-                      localStorage.removeItem('token');
-                      // Si guardas más info de usuario, bórrala también
-                      // localStorage.removeItem('user');
-                      navigate('/');
-                    }}
-                    sx={{ ml: 2 }}
-                  >
-                    Salir
-                  </Button>
+                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                    <LoginButton />
+                    <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
+                  </div>
                 )}
 
                 <div className="hidden lg:ml-8 lg:flex">
                   {/* Este sigue siendo un <a> porque no es una ruta interna */}
-                  <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
                     <img
                       alt=""
-                      src="https://tailwindcss.com/plus-assets/img/flags/flag-peru.svg"
+                      src={Banderas[0].Imagen}
                       className="block h-auto w-5 shrink-0"
-                    />
-                    <span className="ml-3 block text-sm font-medium">PEN</span>
+                    />                   
                     
-                  </a>
+                  
                 </div>
 
                 {/* Search */}

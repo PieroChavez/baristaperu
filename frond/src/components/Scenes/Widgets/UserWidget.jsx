@@ -14,35 +14,17 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import EmailIcon from "@mui/icons-material/Email";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Rol } from "../../../assets/RolUser/Rol";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const UserWidget = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const navigate = useNavigate();
 
-  // Obtenemos los datos desde Redux
-  const userData = useSelector((state) => state.user.user);
+  // Auth0
+  const { user: auth0User, isAuthenticated, isLoading } = useAuth0();
 
-  // Validaciones en caso no haya sesión activa
-  const nombreUsuario = userData?.nombre || "Nombre no disponible";
-  const rolUsuario = userData?.rol || "Rol no disponible";
-  const sexoUsuario = userData?.sexo || "";
-  const imagenUsuario = userData?.imagen || "";
-
-  // Determina la imagen del usuario según su sexo o imagen personalizada
-  const getImagenPorSexo = () => {
-    if (imagenUsuario) return imagenUsuario;
-    if (sexoUsuario.toLowerCase() === "femenino") return Rol[0].image;
-    if (sexoUsuario.toLowerCase() === "masculino") return Rol[1].image;
-    return Rol[2].image;
-  };
-
-  const user = {
-    picturePath: getImagenPorSexo(),
-    name: nombreUsuario,
-    rol: rolUsuario,
-  };
+  if (isLoading) return <div>Cargando...</div>;
+  if (!isAuthenticated || !auth0User) return null;
 
   return (
     <Box
@@ -57,8 +39,8 @@ const UserWidget = () => {
     >
       <Box display="flex" flexDirection="column" alignItems="center">
         <Avatar
-          src={user.picturePath}
-          alt="Usuario"
+          src={auth0User.picture}
+          alt={auth0User.name}
           sx={{ width: 100, height: 100 }}
         />
         <Button
@@ -73,10 +55,10 @@ const UserWidget = () => {
 
       <Box flex="1" width="100%">
         <Typography variant="h6" align={isNonMobileScreens ? "inherit" : "center"}>
-          {user.name}
+          {auth0User.name}
         </Typography>
         <Typography variant="body2" color="textSecondary" align={isNonMobileScreens ? "inherit" : "center"}>
-          {user.rol}
+          {auth0User.email}
         </Typography>
         <Typography variant="body2" color="textSecondary" align={isNonMobileScreens ? "inherit" : "center"}>
           País: Perú
