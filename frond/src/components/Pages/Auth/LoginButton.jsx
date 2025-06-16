@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const LoginButton = () => {
   const { loginWithRedirect } = useAuth0();
@@ -14,8 +15,19 @@ const LoginButton = () => {
           },
         })
       }
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "0.5rem",
+        cursor: "pointer",
+        border: "none",
+        background: "transparent",
+        fontSize: "1rem",
+      }}
+      className="hover:text-indigo-600"
     >
-      Iniciar sesión
+      <AccountCircleIcon style={{ fontSize: 22 }} />
+      Iniciar
     </button>
   );
 };

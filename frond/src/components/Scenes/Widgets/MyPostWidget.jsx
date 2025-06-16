@@ -9,22 +9,14 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import ImageIcon from "@mui/icons-material/Image";
 import MovieIcon from "@mui/icons-material/Movie";
 
-import { useSelector } from "react-redux";
-import { Rol } from "../../../assets/RolUser/Rol";
-
-// Función que determina qué imagen mostrar
-const getImagenPorSexo = (sexo = "", imagen = "") => {
-  if (imagen) return imagen;
-  if (sexo.toLowerCase() === "femenino") return Rol[0].image;
-  if (sexo.toLowerCase() === "masculino") return Rol[1].image;
-  return Rol[2].image;
-};
+import { useAuth0 } from "@auth0/auth0-react";
 
 const MyPostWidget = () => {
-  const user = useSelector((state) => state.user?.user);
+  const { user } = useAuth0();
   if (!user) return null;
 
-  const profileImage = getImagenPorSexo(user.sexo, user.imagen);
+  const profileImage = user.picture;
+  const userName = user.name || user.nickname || "Usuario";
 
   return (
     <Box
@@ -37,7 +29,7 @@ const MyPostWidget = () => {
       <Box display="flex" alignItems="center" gap={2}>
         <Avatar
           src={profileImage}
-          alt={user.nombre}
+          alt={userName}
           sx={{ width: 40, height: 40 }}
         />
         <Box
@@ -52,7 +44,7 @@ const MyPostWidget = () => {
             border: "1px solid #ccd0d5",
           }}
         >
-          ¿Qué estás pensando, {user.nombre}?
+          ¿Qué estás pensando, {userName}?
         </Box>
       </Box>
 

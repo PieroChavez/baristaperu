@@ -7,6 +7,8 @@ import { ThemeProvider } from './ThemeContext';
 import Home from './components/Pages/Home/Home';
 import Index from './components/Pages/Index';
 import Profile from './components/Pages/Home/Profile';
+import Nosotros from './components/Pages/Home/Nosotros';
+import Store from './components/Pages/Home/Store'; // crea este componente si no existe
 import Navbar from './components/Layaouts/Navbar';
 import Footer from './components/Layaouts/Footer';
 
@@ -34,6 +36,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/redirect" element={<AuthRedirect />} />
+          {/* Rutas privadas */}
           <Route
             path="/home"
             element={
@@ -50,7 +53,22 @@ function App() {
               </PrivateRoute>
             }
           />
-          {/* Puedes agregar más rutas aquí */}
+          <Route
+            path="/nosotros"
+            element={
+              <PrivateRoute>
+                <Nosotros />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/Store"
+            element={
+              <PrivateRoute>
+                <Store />
+              </PrivateRoute>
+            }
+          />
         </Routes>
         <Footer />
       </HashRouter>

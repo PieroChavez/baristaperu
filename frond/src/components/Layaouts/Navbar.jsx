@@ -74,14 +74,14 @@ const navigation = {
           ],
         },
         {
-          id: 'accessories baristas',
-          name: 'Accesorios',
+          id: 'ferias',
+          name: 'Ferias',
           items: [
-            { name: 'Filtros', href: '/filtros' },
-            { name: 'Prensas', href: '/prensas' },
-            { name: 'Molinillos', href: '/molinillos' },
-            { name: 'Tazas', href: '/tazas' },
-            { name: 'Otros', href: '/otros-accesorios' },
+            { name: 'Feria de Productores', href: '/ferias' },
+            //{ name: 'Prensas', href: '/prensas' },
+            //{ name: 'Molinillos', href: '/molinillos' },
+            //{ name: 'Tazas', href: '/tazas' },
+            //{ name: 'Otros', href: '/otros-accesorios' },
           ],
         },
         {
@@ -128,10 +128,10 @@ const navigation = {
           name: 'Accesorios',
           items: [
             { name: 'Filtros', href: '/filtros' },
-            { name: 'Prensas', href: '/prensas' },
-            { name: 'Molinillos', href: '/molinillos' },
-            { name: 'Tazas', href: '/tazas' },
-            { name: 'Otros', href: '/otros-accesorios' },
+            { name: 'Metodos', href: '/Metodos' },
+            { name: 'Molinos', href: '/molinos' },
+            { name: 'Tazas y menajes', href: '/tazas-y-menajes' },
+            { name: 'Maquinas', href: '/maquinas' },
           ],
         },
         {
@@ -147,8 +147,8 @@ const navigation = {
     },
   ],
   pages: [
-    { name: 'Nosotros', href: '/company' },
-    { name: 'Tiendas', href: '/stores' },
+    { name: 'Nosotros', href: '/Nosotros' },
+    { name: 'Tiendas', href: '/Store' },
   ],
 }
 
@@ -300,7 +300,7 @@ export default function Navbar() {
                         alt={user?.name}
                         sx={{ width: 32, height: 32 }}
                       />
-                      <span className="text-xs text-gray-400 mt-1">{user?.name}</span>
+                      
                     </div>
                     <LogoutButton />
                   </div>
