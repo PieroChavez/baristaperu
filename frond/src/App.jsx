@@ -1,6 +1,6 @@
 // src/App.jsx
 import React from 'react';
-import { HashRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from './ThemeContext';
 
@@ -12,43 +12,45 @@ import Footer from './components/Layaouts/Footer';
 
 import { useAuth0 } from '@auth0/auth0-react';
 
-// Componente de ruta privada usando Auth0
-function PrivateRoute({ children }) {
+// Ruta privada protegida con Auth0
+const PrivateRoute = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth0();
-
-  if (isLoading) {
-    return <div>Cargando...</div>;
-  }
-
+  if (isLoading) return <div>Cargando...</div>;
   return isAuthenticated ? children : <Navigate to="/" replace />;
-}
+};
 
-// Componente auxiliar para redirección después de login
-function AuthRedirect() {
+// Redirección auxiliar si entras a /redirect (opcional)
+const AuthRedirect = () => {
   const { isAuthenticated } = useAuth0();
-  const navigate = useNavigate();
-
-  React.useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/home");
-    }
-  }, [isAuthenticated, navigate]);
-
-  return null;
-}
+  return isAuthenticated ? <Navigate to="/home" replace /> : <Navigate to="/" replace />;
+};
 
 function App() {
   return (
     <ThemeProvider>
       <CssBaseline />
       <HashRouter>
-        <AuthRedirect />
         <Navbar />
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* Rutas protegidas con Auth0 */}
-          <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
-          <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+          <Route path="/redirect" element={<AuthRedirect />} />
+          <Route
+            path="/home"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+          {/* Puedes agregar más rutas aquí */}
         </Routes>
         <Footer />
       </HashRouter>

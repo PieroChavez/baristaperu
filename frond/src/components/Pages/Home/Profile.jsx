@@ -1,175 +1,209 @@
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { createTheme } from '@mui/material/styles';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import DescriptionIcon from '@mui/icons-material/Description';
+import LayersIcon from '@mui/icons-material/Layers';
+import Avatar from '@mui/material/Avatar';
+import { AppProvider } from '@toolpad/core/AppProvider';
+import { DashboardLayout } from '@toolpad/core/DashboardLayout';
+import { DemoProvider, useDemoRouter } from '@toolpad/core/internal';
+import { useAuth0 } from '@auth0/auth0-react';
+import { NavLink } from "react-router-dom";
+import logo from '../../../../public/logo.PNG'; // Asegúrate de que esta ruta sea válida
 
-import React from 'react';
-import { Rol } from '../../../assets/RolUser/Rol';
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-  Avatar,
-  Typography,
-  Box,
-  IconButton,
-  Toolbar,
-  AppBar,
-  CssBaseline,
-} from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import EventIcon from '@mui/icons-material/Event';
-import ReceiptIcon from '@mui/icons-material/Receipt';
-import SettingsIcon from '@mui/icons-material/Settings';
-import CampaignIcon from '@mui/icons-material/Campaign';
-import HelpIcon from '@mui/icons-material/Help';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import LogoutIcon from '@mui/icons-material/Logout';
-import MenuIcon from '@mui/icons-material/Menu';
+const NAVIGATION = [
+  {
+    kind: 'header',
+    title: 'MENÚ PRINCIPAL',
+  },
+  {
+    segment: 'profile',
+    title: 'Perfil',
+    icon: <AccountCircleIcon />,
+  },
+  {
+    segment: 'orders',
+    title: 'Pedidos',
+    icon: <ShoppingCartIcon />,
+  },
+  {
+    kind: 'divider',
+  },
+  {
+    kind: 'header',
+    title: 'Analytics',
+  },
+  {
+    segment: 'reports',
+    title: 'Reportes',
+    icon: <BarChartIcon />,
+    children: [
+      {
+        segment: 'sales',
+        title: 'Ventas',
+        icon: <DescriptionIcon />,
+      },
+      {
+        segment: 'traffic',
+        title: 'Tráfico',
+        icon: <DescriptionIcon />,
+      },
+    ],
+  },
+  {
+    segment: 'integrations',
+    title: 'Integraciones',
+    icon: <LayersIcon />,
+  },
+];
 
-const drawerWidth = 240;
+const demoTheme = createTheme({
+  cssVariables: {
+    colorSchemeSelector: 'data-toolpad-color-scheme',
+  },
+  colorSchemes: { light: true, dark: true },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  },
+  components: {
+    MuiTypography: {
+      defaultProps: {
+        noWrap: true,
+      },
+    },
+  },
+});
 
-// Obtén datos del usuario desde localStorage o usa valores por defecto
-const nombreUsuario = localStorage.getItem("nombre") || "Nombre no disponible";
-const rolUsuario = localStorage.getItem("rol") || "barista";
+function DemoPageContent({ pathname }) {
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
-// Prueba: usa la imagen del índice 0 del array Rol (female.png)
-const getAvatarByRol = () => {
-  return Rol[0].image;
-};
+  if (isLoading) {
+    return (
+      <Box sx={{ py: 4, textAlign: 'center' }}>
+        <Typography>Cargando...</Typography>
+      </Box>
+    );
+  }
 
-export default function Profile() {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  if (!isAuthenticated || !user) {
+    return (
+      <Box sx={{ py: 4, textAlign: 'center' }}>
+        <Typography>No hay datos de usuario.</Typography>
+      </Box>
+    );
+  }
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+  if (pathname === '/profile') {
+    return (
+      <Box
+        sx={{
+          py: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+        }}
+      >
+        <Avatar
+          src={user.picture}
+          alt={user.name}
+          sx={{ width: 96, height: 96, mb: 2 }}
+        />
+        <Typography variant="h5" fontWeight="bold" gutterBottom>
+          {user.name}
+        </Typography>
+        <Typography variant="body1" color="text.secondary" gutterBottom>
+          {user.email}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          ID: {user.sub}
+        </Typography>
+      </Box>
+    );
+  }
 
-  const drawer = (
-    <div>
-      <Toolbar>
-        <Box display="flex" alignItems="center" gap={2}>
-          <Avatar src={getAvatarByRol()} sx={{ width: 56, height: 56 }} />
-          <Box>
-            <Typography variant="subtitle1" noWrap>{nombreUsuario}</Typography>
-            <Typography variant="body2" color="text.secondary" noWrap>{rolUsuario}</Typography>
-          </Box>
-        </Box>
-      </Toolbar>
-      <Divider />
-      <List>
-        <ListItem button component="a" href="/">
-          <ListItemIcon><HomeIcon /></ListItemIcon>
-          <ListItemText primary="Home" />
-        </ListItem>
-        <ListItem button component="a" href="/events">
-          <ListItemIcon><EventIcon /></ListItemIcon>
-          <ListItemText primary="Events" />
-        </ListItem>
-        <ListItem button component="a" href="/orders">
-          <ListItemIcon><ReceiptIcon /></ListItemIcon>
-          <ListItemText primary="Orders" />
-        </ListItem>
-        <ListItem button component="a" href="/settings">
-          <ListItemIcon><SettingsIcon /></ListItemIcon>
-          <ListItemText primary="Settings" />
-        </ListItem>
-        <ListItem button component="a" href="/broadcasts">
-          <ListItemIcon><CampaignIcon /></ListItemIcon>
-          <ListItemText primary="Broadcasts" />
-        </ListItem>
-      </List>
-      <Divider />
-      <List>
-        <ListItem button component="a" href="/support">
-          <ListItemIcon><HelpIcon /></ListItemIcon>
-          <ListItemText primary="Support" />
-        </ListItem>
-        <ListItem button component="a" href="/changelog">
-          <ListItemIcon><AutoAwesomeIcon /></ListItemIcon>
-          <ListItemText primary="Changelog" />
-        </ListItem>
-        <ListItem button component="a" href="/logout">
-          <ListItemIcon><LogoutIcon /></ListItemIcon>
-          <ListItemText primary="Sign out" />
-        </ListItem>
-      </List>
-    </div>
-  );
+  if (pathname === '/orders') {
+    return (
+      <Box sx={{ py: 4, textAlign: 'center' }}>
+        <Typography variant="h6" gutterBottom>
+          Mis Pedidos
+        </Typography>
+        {/* Aquí puedes agregar lista de pedidos */}
+      </Box>
+    );
+  }
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-        }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Baristas Perú
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="sidebar folders"
-      >
-        {/* Drawer para mobile */}
-        <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
-        {/* Drawer para desktop */}
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-          open
-        >
-          {drawer}
-        </Drawer>
-      </Box>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          mt: 8,
-        }}
-      >
-        {/* Aquí va el contenido principal de la página */}
-        <Typography variant="h4">Bienvenido, {nombreUsuario}!</Typography>
-      </Box>
+    <Box sx={{ py: 4, textAlign: 'center' }}>
+      <Typography>Dashboard content for {pathname}</Typography>
     </Box>
   );
 }
 
+DemoPageContent.propTypes = {
+  pathname: PropTypes.string.isRequired,
+};
 
+function Profile(props) {
+  const { window } = props;
+  const router = useDemoRouter('/profile');
+  const demoWindow = window !== undefined ? window() : undefined;
 
+  return (
+    <DemoProvider window={demoWindow}>
+      <AppProvider
+        navigation={NAVIGATION}
+        router={router}
+        theme={demoTheme}
+        window={demoWindow}
+        branding={{
+          logo: (
+            <NavLink to="/home" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+              <img
+                src={logo}
+                alt="Logo Baristas"
+                style={{ height: 32, marginRight: 8 }}
+              />
+                <Typography
+                variant="h6"
+                sx={{
+                  color: 'primary.main',
+                  fontWeight: 'bold',
+                  letterSpacing: 1,
+                }}
+              >
+                BARISTAS
+              </Typography>
+            </NavLink>
+          ),
+          title: '',
+          homeUrl: '/home', // Puedes dejarlo así o eliminarlo si no lo usas
+        }}
+      >
+        <DashboardLayout>
+          <DemoPageContent pathname={router.pathname} />
+        </DashboardLayout>
+      </AppProvider>
+    </DemoProvider>
+  );
+}
 
+Profile.propTypes = {
+  window: PropTypes.func,
+};
 
+export default Profile;

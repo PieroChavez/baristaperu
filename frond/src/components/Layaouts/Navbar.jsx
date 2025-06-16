@@ -163,8 +163,8 @@ export default function Navbar() {
    const { isAuthenticated, user } = useAuth0();
   const isLoggedIn = isAuthenticated;
 
-  // Simula si el usuario está registrado (reemplaza esto con tu lógica real)
-  const isRegistered = false;
+  // Cambia esto:
+  const isRegistered = isLoggedIn; // Ahora depende de Auth0
 
   // Función para manejar el click en links protegidos
   const handleProtectedClick = (e, href) => {
