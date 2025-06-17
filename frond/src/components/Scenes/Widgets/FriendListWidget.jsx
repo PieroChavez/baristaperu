@@ -4,6 +4,7 @@ const FriendListWidget = () => {
   return (
     <div>
          <Box
+              mt={1}
               p="1rem"
               bgcolor="#f6f6f610"
               borderRadius="1rem"

@@ -14,7 +14,7 @@ import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { DemoProvider, useDemoRouter } from '@toolpad/core/internal';
 import { useAuth0 } from '@auth0/auth0-react';
 import { NavLink } from "react-router-dom";
-import logo from '../../../../public/logo.PNG'; // Asegúrate de que esta ruta sea válida
+import logo from '../../../../src/assets/logo.PNG'; // Asegúrate de que esta ruta sea válida
 
 const NAVIGATION = [
   {

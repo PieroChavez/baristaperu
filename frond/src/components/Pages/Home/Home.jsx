@@ -7,6 +7,7 @@ import AdvertWidget from "@/components/Scenes/Widgets/AdvertWidget";
 import MyPostWidget from "@/components/Scenes/Widgets/MyPostWidget";
 import { useAuth0 } from "@auth0/auth0-react";
 import PostsWidget from "@/components/Scenes/Widgets/PostsWidget";
+import Logos from "@/components/Layaouts/Logos";
 
 const Home = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -34,19 +35,23 @@ const Home = () => {
           mb={isNonMobileScreens ? 0 : 2}
         >
           <UserWidget />
+          
         </Box>
 
         {/* Columna central */}
         <Box
           flexBasis={isNonMobileScreens ? "56%" : "100%"}
-          mt={isNonMobileScreens ? undefined : 2}
+           padding="1rem"
+             sx={{
+            overflowY: "auto",
+            maxHeight: "100vh", // Altura máxima limitada a la pantalla
+          }}
+           
         >
           <MyPostWidget />
-          <Stories />
+          <Stories /> 
 
-          <PostsWidget />
-
-          
+          <PostsWidget />          
         </Box>
 
         {/* Columna derecha */}
@@ -54,6 +59,7 @@ const Home = () => {
           <Box flexBasis="22%">
             <AdvertWidget />
             <FriendListWidget />
+             <Logos/>
           </Box>
         )}
       </Box>

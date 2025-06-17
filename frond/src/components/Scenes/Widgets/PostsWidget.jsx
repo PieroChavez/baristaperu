@@ -1,70 +1,93 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Typography,
+  IconButton,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Avatar,
+} from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+
+import { userSocios } from "@/assets/Logos/Logos";
 
 const PostsWidget = () => {
-  const [coffeePrice, setCoffeePrice] = useState(null);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const fetchPrice = async () => {
-      try {
-        const res = await fetch(
-          "https://api.tradingeconomics.com/commodity/coffee?c=dff31f06e42044f:p6z6n6ucsr1862r"
-        );
-        const data = await res.json();
-        setCoffeePrice(data[0]?.price);
-      } catch (error) {
-        console.error("Error al obtener el precio del café:", error);
-      }
-    };
+    const barista = userSocios.find((socio) => socio.id === 11);
 
-    fetchPrice();
-    const interval = setInterval(fetchPrice, 60000); // Actualiza cada 60s
-
-    return () => clearInterval(interval);
+    setPosts([
+      {
+        id: barista.id,
+        user: barista.name,
+        content: barista.content,
+        image: barista.post,
+        logo: barista.logo,
+        likes: 100,
+        comments: 25,
+      },
+    
+    ]);
   }, []);
-
-  const posts = [
-    {
-      id: 1,
-      user: "Carlos Ríos",
-      content: "Hoy preparé un Chemex increíble 🤎 #coffeeLovers",
-    },
-  ];
 
   return (
     <>
-      {/* Widget del precio del café */}
-      <Box
-        p="1rem"
-        bgcolor="#fff3e0"
-        borderRadius="1rem"
-        mb="1.5rem"
-        boxShadow="0 0 8px rgba(0,0,0,0.1)"
-        textAlign="center"
-      >
-        <Typography variant="h6" fontWeight="bold">
-          ☕ Precio actual del café:
-        </Typography>
-        <Typography variant="h5" color="primary">
-          {coffeePrice ? `$${coffeePrice.toFixed(2)} USD` : "Cargando..."}
-        </Typography>
-      </Box>
-
-      {/* Posts */}
       {posts.map((post) => (
-        <Box
+        <Card
           key={post.id}
-          p="1rem"
-          bgcolor="#f6f6f610"
-          borderRadius="1rem"
-          mb="1rem"
-          boxShadow="0 0 5px rgba(0,0,0,0.05)"
+          sx={{
+            mb: 2,
+            borderRadius: 3,
+            boxShadow: "0 0 10px rgba(0,0,0,0.05)",
+          }}
         >
-          <Typography variant="subtitle1" fontWeight="bold">
-            {post.user}
-          </Typography>
-          <Typography variant="body1">{post.content}</Typography>
-        </Box>
+          <Box display="flex" alignItems="center" p={2}>
+            <Avatar
+              src={post.logo || ""}
+              alt={post.user}
+              sx={{ width: 48, height: 48, mr: 2 }}
+            >
+              {!post.logo && post.user[0]}
+            </Avatar>
+            <Box>
+              <Typography variant="subtitle1" fontWeight="bold">
+                {post.user}
+              </Typography>
+              <Typography variant="caption" color="textSecondary">
+                Hace 1 hora
+              </Typography>
+            </Box>
+          </Box>
+
+          {post.image && (
+            <CardMedia
+              component="img"
+              height="300"
+              image={post.image}
+              alt="Imagen del post"
+              sx={{ objectFit: "cover" }}
+            />
+          )}
+
+          <CardContent>
+            <Typography variant="body1">{post.content}</Typography>
+          </CardContent>
+
+          <CardActions disableSpacing>
+            <IconButton aria-label="like">
+              <FavoriteIcon sx={{ color: "#e57373" }} />
+            </IconButton>
+            <Typography variant="body2">{post.likes}</Typography>
+            <IconButton aria-label="comment">
+              <ChatBubbleOutlineIcon sx={{ ml: 2 }} />
+            </IconButton>
+            <Typography variant="body2">{post.comments}</Typography>
+          </CardActions>
+        </Card>
       ))}
     </>
   );

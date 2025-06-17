@@ -28,11 +28,11 @@ const Index = () => {
 
   return (
     <>
-      <div className="relative overflow-hidden dark:bg-gray-900 transition-colors duration-500">
+      <div className="relative overflow-hidden gray-900 transition-colors duration-500">
         <div className="pt-20 pb-120 sm:pt-24 sm:pb-40 lg:pt-40 lg:pb-48">
           <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
             <div className="sm:max-w-lg">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-300 dark:text-white sm:text-6xl">
+              <h1 className="text-4xl font-bold tracking-tight text-gray-300 dark:text-gray-500 sm:text-6xl">
                 Súmate y deja que la pasión hable por ti
               </h1>
               <p className="mt-4 text-xl text-gray-500 dark:text-gray-00">

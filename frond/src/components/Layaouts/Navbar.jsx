@@ -181,7 +181,7 @@ export default function Navbar() {
     <div>
       {/* Navbar fija */}
       <header
-        className="fixed top-0 left-0 w-full z-50 bg-white bg-[#000000] dark:bg-gray-800 shadow"
+        className="fixed top-0 left-0 w-full z-50 bg-white   shadow"
         style={{ minHeight: 64 }}
       >
         <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
