@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ImgPortada } from '@/assets/ImgPortada/ImgPortada'
 import LoginButton from '@/components/Pages/Auth/LoginButton'
+import Footer from '../Layaouts/Footer'
 
 function getRandomImages(arr, count) {
   const shuffled = [...arr].sort(() => 0.5 - Math.random())
@@ -116,6 +117,7 @@ const Index = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   )
 }
